@@ -80,6 +80,9 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+	'libraries':{
+	        'navigation_tags': 'newsite.templatetags.navigation_tags', # our tag files path
+		}
         },
     },
 ]
@@ -161,4 +164,4 @@ WAGTAIL_SITE_NAME = "newsite"
 
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
-BASE_URL = 'http://example.com'
+BASE_URL = 'http://newsite.com'

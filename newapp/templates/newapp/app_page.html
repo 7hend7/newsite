@@ -14,7 +14,7 @@
             <ul>
                 {%for category in categories%}
                 <li style="display: inline">
-                    {%image category.icon fill-32x32 style="vertical-align: middle"%}
+                    {% image category.icon fill-32x32 style="vertical-align: middle"%}
                     {{category.name}}
                 </li>
                 {%endfor%}
@@ -26,7 +26,7 @@
 
     <div class="intro">{{ page.intro }}</div>
 
-    {{ page.body|richtext }}
+    {{ page.body }}
     
     {% for item in page.gallery_images.all %}
     <div style="float:left; margin: 10px">

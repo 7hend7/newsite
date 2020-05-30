@@ -92,6 +92,7 @@ class AppPage(Page):
         # ImageChooserPanel('image'),
         StreamFieldPanel('body'),
         FieldPanel('date_published'),
+        FieldPanel('categories'),
         # InlinePanel()
         FieldPanel('tags'),
         InlinePanel('gallery_images', label="Gallery images"), # gallery_images in AppPageGalleryImages
@@ -144,7 +145,25 @@ class AppTagIndexPage(Page):
         return context
 
 
+@register_snippet
+class FooterText(models.Model):
+    """
+    This provides editable text for the site footer. Again it uses the decorator
+    `register_snippet` to allow it to be accessible via the admin. It is made
+    accessible on the template via a template tag defined in base/templatetags/
+    navigation_tags.py
+    """
+    body = RichTextField()
 
+    panels = [
+        FieldPanel('body'),
+    ]
+
+    def __str__(self):
+        return "Footer text"
+
+    class Meta:
+        verbose_name_plural = 'Footer Text'
 
 
 
