@@ -11,20 +11,24 @@
     {% with categories=page.categories.all%}
         {%if categories%}
             <h3>Posted in:</h3>
+            <div style="width:200px; heigth:200px">
             <ul>
                 {%for category in categories%}
+                
                 <li style="display: inline">
-                    {% image category.icon fill-32x32 style="vertical-align: middle"%}
+                
+                    {% image category.icon fill-100x100 style="vertical-align: middle"%}
                     {{category.name}}
-                </li>
+                </li>                
                 {%endfor%}
             </ul>
+            </div>
             {%else%}
                 <p>It is doesn't belong to some categories</p>
         {%endif%}
     {%endwith%}
 
-    <div class="intro">{{ page.intro }}</div>
+    <div class="intro">{{ page.intro  | safe }}</div>
 
     {{ page.body }}
     

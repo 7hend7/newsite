@@ -42,11 +42,19 @@ class AppIndexPage(Page):
 
     subpage_types = ['AppPage']
 
+    # Defines a method to access the children of the page (e.g. BlogPage
+    # objects). On the demo site we use this on the HomePage
+    def children(self):
+        return self.get_children().specific().live()
+
     def get_context(self, request):
         context = super().get_context(request)
         # get AppPage objects
-        appages = self.get_children().live().order_by("-first_published_at")
-        context['appages'] = appages
+        # appages = self.get_children().live().order_by("-first_published_at")
+        context['appages'] = AppPage.objects.descendant_of(
+            self).live().order_by(
+            '-date_published')        
+        # context['appages'] = appages
         return context
 
 
@@ -85,6 +93,14 @@ class AppPage(Page):
         )
 
     categories = ParentalManyToManyField('newapp.AppCategory', blank=True)
+    
+    # TODO!
+    def get_first_image(self):
+        # return None
+        # return AppPageGalleryImage.objects.first(). # .first()
+        apg = AppPageGalleryImage.objects.filter(page__id=self.id).first()
+        img = apg.image  # .file
+        return img
 
     content_panels = Page.content_panels + [
         FieldPanel('subtitle', classname="full"),
@@ -107,7 +123,7 @@ class AppPageGalleryImage(Orderable):
     '''Related images with AppPage'''
     page = ParentalKey(AppPage, on_delete=models.CASCADE,
                        related_name='gallery_images')
-    image = models.ForeignKey('wagtailimages.Image', on_delete=models.CASCADE, related_name='+')
+    image = models.ForeignKey('wagtailimages.Image', on_delete=models.CASCADE, related_name='image')
     caption = models.CharField(blank="True", max_length=250)
     panels = [ImageChooserPanel('image'), FieldPanel('caption')]
 
