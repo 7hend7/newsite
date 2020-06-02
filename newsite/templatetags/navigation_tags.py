@@ -75,7 +75,7 @@ def top_menu_children(context, parent, calling_page=None):
         'request': context['request'],
     }
 
-
+'''
 @register.inclusion_tag('tags/breadcrumbs.html', takes_context=True)
 def breadcrumbs(context):
     self = context.get('self')
@@ -89,7 +89,7 @@ def breadcrumbs(context):
         'ancestors': ancestors,
         'request': context['request'],
     }
-
+'''
 
 @register.inclusion_tag('includes/footer_text.html', takes_context=True)
 def get_footer_text(context):

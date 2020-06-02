@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load static %}
+{% load static i18n wagtailcore_tags navigation_tags%}
 
 {% block body_class %}template-homepage{% endblock %}
 
@@ -8,6 +8,7 @@
 {% comment %}
 Delete the line below if you're just getting started and want to remove the welcome screen!
 {% endcomment %}
+
 <link rel="stylesheet" href="{% static 'css/welcome_page.css' %}">
 {% endblock extra_css %}
 
@@ -19,3 +20,9 @@ Delete the line below if you're just getting started and want to remove the welc
 {% include 'home/welcome_page.html' %}
 
 {% endblock content %}
+
+{%block footer%}
+<footer class="footer" role="contentinfo">
+       {% get_footer_text %} 
+</footer>
+{%endblock footer%}

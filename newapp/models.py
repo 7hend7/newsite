@@ -151,7 +151,7 @@ class AppCategory(models.Model):
 
 # TODO!
 class AppTagIndexPage(Page):
-    def get_context(self, request):
+    def get_context(self, request): 
         # filter by tag
         tag = request.GET.get('tag')
         appages = AppPage.objects.filter(tags__name=tag)
