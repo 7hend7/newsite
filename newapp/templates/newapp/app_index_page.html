@@ -3,52 +3,30 @@
 
 {% block content %}
 
-    <div class="container">
-        {% if tag %}
-            <div class="row">
-                <div class="col-md-12">
-                    <p>Viewing all blog posts by <span class="outline">{{ tag }}</span></p>
-                </div>
-            </div>
-        {% endif %}
+<div id="page" class="container">
+	<div class="title">
+		<h2>Maecenas luctus lectus</h2>	
+	</div>
 
-        {% if page.get_child_tags %}
-            <ul class="blog-tags tags list-inline">
-                {% for tag in page.get_child_tags %}
-                    <li><a href="{{ tag.url }}">{{ tag }}</a></li>
-                {% endfor %}
-            </ul>
-        {% endif %}
+	<div class="boxA">
+	{% if appages %}
+        {% for blog in appages %}	
+		<div class="box">
+    		{% image blog.get_first_image fill-1200x1200-c50 as image %}
+			<img src="{{ image.url }}" width="320" height="180" alt="" />
+			<h4>{{ blog.subtitle }}</h4>
+			<p>{{ blog.intro|safe }}</p>
+			<a href="{% pageurl blog %}" class="button">Read More</a>
+		</div>
+	</div>
+        {%endfor%}
+    {%else%}
+       <div class="col-md-12">
+           <p>Oh, snap. Looks like we were too busy baking to write any blog posts. Sorry.</p>
+       </div>
+    {%endif%}	
+</div>
 
-        <div class="row row-eq-height blog-list">
-            {% if appages %}
-                {% for blog in appages %}
-                    <li class="col-xs-12 col-sm-6 col-md-3 blog-list-item">
-                        <a href="{% pageurl blog %}">
-                            <div class="image">
-                                {% image blog.get_first_image fill-1200x1200-c50 as image %}
-                                <img src="{{ image.url }}" width="{{ image.width }}" height="{{ image.height }}" alt="{{ image.alt }}" class="" />
-                            </div>
-                            <div class="text">
-                                <h2 class="blog-list-title">{{ blog.title }}</h2>
-                                <p>{{ blog.introduction|truncatewords:15 }}</p>
-                            </div>
-                            <div class="small footer">
-                                {% if blog.date_published %}
-                                    {{ blog.date_published }} by 
-                                {% endif %}
-                                {% for author in blog.authors %}
-                                    {{ author }}{% if not forloop.last %}, {% endif %}
-                                {% endfor %}
-                            </div>
-                        </a>
-                    </li>
-                {% endfor %}
-            {% else %}
-                <div class="col-md-12">
-                    <p>Oh, snap. Looks like we were too busy baking to write any blog posts. Sorry.</p>
-                </div>
-            {% endif %}
-        </div>
-    </div>
+        
+    
 {% endblock content %}

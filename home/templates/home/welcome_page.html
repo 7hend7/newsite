@@ -4,13 +4,9 @@
 </h2>
 
 {% for child in page.get_childs_page %}
-    <p>{{child.title| safe}}</p>
-    <p>{{child.intro| safe}}</p>
-    <p>{{child.url| safe}}</p>
+ 
     <a href="{{ child.url }}">index blog</a>
     {%for post in child.get_children.live%}
-        <p>{{post.title| safe}}</p>
-        <p>{{post.intro| safe}}</p>
-        <p>{{post.url| safe}}</p>
+         
     {%endfor%}
 {%endfor%}

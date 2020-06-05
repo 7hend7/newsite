@@ -41,6 +41,7 @@ INSTALLED_APPS = [
 
     'modelcluster',
     'taggit',
+    'wagtailfontawesome',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -64,6 +65,11 @@ MIDDLEWARE = [
     'wagtail.contrib.redirects.middleware.RedirectMiddleware',
 ]
 
+# 
+MIDDLEWARE_CLASSES = (
+    'django.middleware.locale.LocaleMiddleware',
+)
+#
 ROOT_URLCONF = 'newsite.urls'
 
 TEMPLATES = [
@@ -124,8 +130,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
+# LANGUAGE_CODE = 'ru-ru'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Kiev'# 'UTC'
 
 USE_I18N = True
 
@@ -133,6 +140,7 @@ USE_L10N = True
 
 USE_TZ = True
 
+DATETIME_INPUT_FORMATS = ['%d/%m/%Y %H:%M:%S']     # '01.02.2020 14:30:59'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/

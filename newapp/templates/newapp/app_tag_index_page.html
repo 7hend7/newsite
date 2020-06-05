@@ -3,4 +3,12 @@
 
 {% block content %}
     <h2>Index tag page here</h2>
+    
+    <ul>
+    {%for page in appages%}
+        <li><a href="{%pageurl page%}">{{page}}</a></li>
+        {%empty%}
+        <h3>No results by tag {{tag}}</h3>
+    {%endfor%}
+    </ul>
 {% endblock %}

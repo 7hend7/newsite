@@ -1,5 +1,13 @@
 {% load wagtailcore_tags %}
 
-<div class="copyright text-center text-muted" role="note">
-    {{ footer_text|richtext }}
-</div>
+{% block extra_css %}
+<style>
+.rich-text{
+    color: gray;
+    text-align: center
+}
+</style>
+{% endblock extra_css %}
+
+{{footer_text|richtext}}
+

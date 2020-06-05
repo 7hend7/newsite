@@ -53,9 +53,12 @@ class AppIndexPage(Page):
         # appages = self.get_children().live().order_by("-first_published_at")
         context['appages'] = AppPage.objects.descendant_of(
             self).live().order_by(
-            '-date_published')        
+            '-date_published')
         # context['appages'] = appages
         return context
+
+    def __str__(self):
+        return "<<{}>>".format(self.title)
 
 
 class AppPageTag(TaggedItemBase):
@@ -93,8 +96,7 @@ class AppPage(Page):
         )
 
     categories = ParentalManyToManyField('newapp.AppCategory', blank=True)
-    
-    # TODO!
+
     def get_first_image(self):
         # return None
         # return AppPageGalleryImage.objects.first(). # .first()
@@ -111,7 +113,7 @@ class AppPage(Page):
         FieldPanel('categories'),
         # InlinePanel()
         FieldPanel('tags'),
-        InlinePanel('gallery_images', label="Gallery images"), # gallery_images in AppPageGalleryImages
+        InlinePanel('gallery_images', label="Gallery images"),  # gallery_images in AppPageGalleryImages
         ]
     # -
     search_fields = Page.search_fields + [
@@ -149,15 +151,16 @@ class AppCategory(models.Model):
     class Meta:
         verbose_name_plural = 'Categories'
 
-# TODO!
+
 class AppTagIndexPage(Page):
-    def get_context(self, request): 
+    def get_context(self, request):
         # filter by tag
         tag = request.GET.get('tag')
         appages = AppPage.objects.filter(tags__name=tag)
         # -
         context = super().get_context(request)
         context['appages'] = appages
+        context['tag'] = tag
         return context
 
 
