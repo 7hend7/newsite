@@ -14,7 +14,12 @@
                 </ul>
             {% endblock %}                
 		</div>
-		
+	
 	</div>
-
+	<div id="bheader" class="container">
+        {% block breadcrumbs %}
+            {# breadcrumbs is defined in base/templatetags/navigation_tags.py #}
+            {% breadcrumbs %}
+        {% endblock breadcrumbs %}	
+    </div>
 </div>

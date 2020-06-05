@@ -14,8 +14,9 @@
 		<div class="box">
     		{% image blog.get_first_image fill-1200x1200-c50 as image %}
 			<img src="{{ image.url }}" width="320" height="180" alt="" />
-			<h4>{{ blog.subtitle }}</h4>
-			<p>{{ blog.intro|safe }}</p>
+			<p>{{ blog.specific.date_published }}</p>
+			<h4>{{ blog.specific.subtitle }}</h4>    
+			<p>{{ blog.specific.intro|safe | truncatewords:15 }}</p>
 			<a href="{% pageurl blog %}" class="button">Read More</a>
 		</div>
 	</div>
