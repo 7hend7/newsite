@@ -218,7 +218,7 @@
 	.boxB,
 	.boxC
 	{
-		width: 320px;
+		width: 420 px; /*320*/
 	}
 
 	.boxA,
@@ -337,25 +337,48 @@
 	}
 
 /*********************************************************************************/
-/* Welcome                                                                       */
+/* Tagged list                                                                       */
 /*********************************************************************************/
 
-	#welcome
+	#tagged
 	{
 		overflow: hidden;
 		width: 1000px;
 		margin-top: 3em;
-		padding: 4em 100px 3em 100px;
-		background: #FFF;
+		padding: 2em 100px 2em 100px;
+		background: black;		
+		text-align:center;
 	}
 
 	
-	#welcome h2
+	#tagged h2
 	{
 		padding-bottom: 1em;
 		font-size: 1.8em;
 		font-weight: 400;
+		color: white;
 	}
+
+	.tag-container
+	{
+		overflow: hidden;
+		margin: 0em auto;
+		width: auto;
+		display: inline-block;		
+	}
+	
+	.tag-button
+	{
+		display: inline-block;
+		padding: 1em 2em 1em 2em; 
+		background: deepSkyBlue;/*#96063b*/
+		letter-spacing: 0.20em;
+		/*text-decoration: none;*/
+		/*text-transform: uppercase;*/
+		font-weight: 400;
+		font-size: 0.90em;
+		color: #FFF;
+	}		
 
 /*********************************************************************************/
 /* Page                                                                          */
@@ -377,11 +400,14 @@
 	
 	#page .boxA
 	{
+    	width:inherit;
 	}
 	
 	#page .box
 	{
 		margin-bottom: 4em;
+        display: inline-block; /* Строчно-блочный элемент */
+        padding: 5px;
 	}
 	
 	#page img
@@ -472,50 +498,51 @@
 /* breadcrumb Header                                                             */
 /*********************************************************************************/
 
-.breadcrumb-container {
-  background: linear-gradient(to right, rgba(21,38,44,0.8) 0%,rgba(0,0,0,0.9) 100%);
-  margin-top: -1px;
-  position: relative;
-  z-index: 3;
-}
-.breadcrumb {
-  background-color: transparent;
-  color: #ccc;
-  font-family: 'Lato', sans-serif;
-  font-size: 14px;
-  margin-bottom: 0px;
-  padding-left: 0px;
-}
-.breadcrumb a, .breadcrumb .active {
-  color: #ccc;
-}
-.breadcrumb .active {
-  font-weight: bold;
-}
-.breadcrumb a:hover {
-  color: #fff;
-  text-decoration: none;
-}
-.breadcrumb>li+li:before {
-  content: "\00BB";
-}
+    .breadcrumb-container {
+      background: linear-gradient(to right, rgba(21,38,44,0.8) 0%,rgba(0,0,0,0.9) 100%);
+      margin-top: -1px;
+      position: relative;
+      z-index: 3;
+    }
+    .breadcrumb {
+      background-color: transparent;
+      color: #ccc;
+      font-family: 'Lato', sans-serif;
+      font-size: 14px;
+      margin-bottom: 0px;
+      padding-left: 0px;
+    }
+    .breadcrumb a, .breadcrumb .active {
+      color: #ccc;
+    }
+    .breadcrumb .active {
+      font-weight: bold;
+    }
+    .breadcrumb a:hover {
+      color: #fff;
+      text-decoration: none;
+    }
+    .breadcrumb>li+li:before {
+      content: "\00BB";
+    }
 
-.bcontainer {
-  width: auto;
-  padding-left: 20px;
-  padding-right: 20px;
-}
+    .bcontainer {
+      width: auto;
+      padding-left: 20px;
+      padding-right: 20px;
+    }
 
-@media (min-width: 768px) {
-  .bcontainer {
-    max-width: 1400px;
-    padding-left: 30px;
-    padding-right: 30px;
-  }
-}
-.bcontainer-narrow > hr {
-  margin: 30px 0;
-}
+    @media (min-width: 768px) {
+      .bcontainer {
+        max-width: 1400px;
+        padding-left: 30px;
+        padding-right: 30px;
+      }
+    }
+
+    .bcontainer-narrow > hr {
+      margin: 30px 0;
+    }
 
 	#bheader
 	{
@@ -525,6 +552,15 @@
 		# background: #000000b;
 	}
 
-.col-lg-12{width:100%}
-.hidden{display:none!important}
+    .col-lg-12{width:100%}
+    .hidden{display:none!important}
 
+/*tag container*/
+	/*.wraptag-container
+	{
+		overflow: hidden;
+		margin: 0em auto;
+		width: 1200px;
+		color:black;		
+	}*/
+	

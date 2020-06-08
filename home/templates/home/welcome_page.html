@@ -5,8 +5,8 @@
 
 {% for child in page.get_childs_page %}
  
-    <a href="{{ child.url }}">index blog</a>
+    <!--<a href="{{ child.url }}">__</a>-->
     {%for post in child.get_children.live%}
-         
+         pass
     {%endfor%}
 {%endfor%}

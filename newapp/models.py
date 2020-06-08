@@ -104,6 +104,9 @@ class AppPage(Page):
         img = apg.image  # .file
         return img
 
+    def get_image_count(self):
+        return AppPageGalleryImage.objects.filter(page__id=self.id).count()
+
     content_panels = Page.content_panels + [
         FieldPanel('subtitle', classname="full"),
         FieldPanel('intro', classname="full"),

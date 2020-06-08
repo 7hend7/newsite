@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load wagtailcore_tags navigation_tags wagtailimages_tags %}
-
+{% load static %}
 {% block content %}
 
 <div id="page" class="container">
@@ -10,24 +10,27 @@
 
 	<div class="boxA">
 	{% if appages %}
-        {% for blog in appages %}	
+        {% for blog in appages %}
 		<div class="box">
-    		{% image blog.get_first_image fill-1200x1200-c50 as image %}
-			<img src="{{ image.url }}" width="320" height="180" alt="" />
+		{%if blog.get_image_count %}
+    		{% image blog.get_first_image fill-1200x1200-c50 as fimage %}
+			<img src="{{ fimage.url }}" width="250" height="150" alt="" />
+		{%else%}
+			<img src="{%static 'img/default.jpg'%}" width="250" height="150" alt="" />
+        {%endif%}
 			<p>{{ blog.specific.date_published }}</p>
-			<h4>{{ blog.specific.subtitle }}</h4>    
-			<p>{{ blog.specific.intro|safe | truncatewords:15 }}</p>
+			<h4>{{ blog.specific.subtitle|truncatechars:35 }}</h4>    
+			<p>{{ blog.specific.intro|safe|truncatechars:35 }}</p>
 			<a href="{% pageurl blog %}" class="button">Read More</a>
 		</div>
-	</div>
-        {%endfor%}
-    {%else%}
+		{%endfor%}
+	{%else%}	
        <div class="col-md-12">
            <p>Oh, snap. Looks like we were too busy baking to write any blog posts. Sorry.</p>
-       </div>
-    {%endif%}	
+       </div>	
+    {%endif%}
+	</div>
+	
 </div>
 
-        
-    
 {% endblock content %}
