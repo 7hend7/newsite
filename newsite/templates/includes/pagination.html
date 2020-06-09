@@ -1,5 +1,5 @@
 {% load navigation_tags %}
-
+{%if subpages.has_previous or  subpages.has_next%}
 <nav role="pagination" aria-label="Pagination">
     <ul class="pagination">
         {% if subpages.has_previous %}
@@ -31,3 +31,5 @@
         {% endif %}
     </ul>
 </nav>
+{%else%}
+{%endif%}

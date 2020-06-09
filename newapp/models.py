@@ -21,6 +21,8 @@ from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from .blocks import BaseStreamBlock
 from wagtail.snippets.models import register_snippet
 
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 
 class AppIndexPage(Page):
     intro = RichTextField(
@@ -47,13 +49,30 @@ class AppIndexPage(Page):
     def children(self):
         return self.get_children().specific().live()
 
+    def get_livepages(self):
+        pages = AppPage.objects.live().descendant_of(self).order_by('-date_published')  # '-first_published_at'  
+        return pages
+
+    # Pagination for the index page. We use the `django.core.paginator` as any
+    # standard Django app would, but the difference here being we have it as a
+    # method on the model rather than within a view function
+    def paginate(self, request, *args):
+        page = request.GET.get('page')
+        paginator = Paginator(self.get_livepages(), 3)
+        try:
+            pages = paginator.page(page)
+        except PageNotAnInteger:
+            pages = paginator.page(1)
+        except EmptyPage:
+            pages = paginator.page(paginator.num_pages)
+        return pages
+
     def get_context(self, request):
         context = super().get_context(request)
         # get AppPage objects
         # appages = self.get_children().live().order_by("-first_published_at")
-        context['appages'] = AppPage.objects.descendant_of(
-            self).live().order_by(
-            '-date_published')
+        # AppPage.objects.descendant_of(self).live().order_by('-date_published')
+        context['appages'] = self.paginate(request)
         # context['appages'] = appages
         return context
 
@@ -156,6 +175,7 @@ class AppCategory(models.Model):
 
 
 class AppTagIndexPage(Page):
+
     def get_context(self, request):
         # filter by tag
         tag = request.GET.get('tag')
