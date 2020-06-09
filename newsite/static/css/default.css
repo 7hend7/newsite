@@ -445,6 +445,10 @@
 
 	#content
 	{
+	    width: 100%;
+        margin: 0;
+        float: none;
+        font-size: 14pt; 
 	}
 
 /*********************************************************************************/
@@ -565,18 +569,33 @@
 	}*/
 
 /*********************************************************************************/
-/* pagination                                                            */
+/* pagination                                                                    */
 /*********************************************************************************/
-.pag-container{
-    /*margin-left: auto;
-    margin-right: auto;
-    display: block;
-    left: 50%;
-    #width: 6em*/
-	position: relative;
-	top: 0;
-	bottom: 0;
-	left: 45%; 
-	right: 0;
-	margin: auto;    
+	.pag-container{
+	    /*margin-left: auto;
+	    margin-right: auto;
+	    display: block;
+	    left: 50%;
+	    #width: 6em*/
+		position: relative;
+		top: 0;
+		bottom: 0;
+		left: 0%; 
+		right: 0;
+		margin: auto;    
 }
+
+/*********************************************************************************/
+/* image									 */
+/*********************************************************************************/
+
+	#image-list{
+	 
+	}
+	
+	#image{
+    	float:left;
+    	margin:10px;
+    	
+	}
+
