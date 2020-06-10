@@ -17,10 +17,15 @@ from wagtail.core.models import Page, Orderable
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.search import index
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
-
-from .blocks import BaseStreamBlock
+# blocks
+from wagtail.embeds.blocks import EmbedBlock
+from wagtail.core.blocks import (
+    CharBlock, ChoiceBlock, RichTextBlock, StreamBlock, StructBlock, TextBlock,
+    )
+from .blocks import BaseStreamBlock, ImageBlock, HeadingBlock, BlockQuote
+# snippets
 from wagtail.snippets.models import register_snippet
-
+# pagination
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 

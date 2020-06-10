@@ -8,39 +8,35 @@
 <div id="page" class="container">
     	<div class="title">
 		<h2>{{ page.title }}</h2>
-		<p class="meta">{{ page.date }}</p><!--???-->
+		<p class="meta">{{ page.date_published }}</p><!--???-->
     	</div>
         
     {% with categories=page.categories.all%}
         {%if categories%}
             
-            <div style="width:200px; heigth:200px">
-            <ul>
+            <div>
                 {%for category in categories%}
-                
-                <li style="display:inline-block">
-                    <h4>Категория:</h4>
-                    {% image category.icon fill-50x50 style="vertical-align: middle"%}
-                    {{category.name}}
-                </li>                
+                    {% image category.icon fill-50x50 style=""%}
+                    <h4 style="float:left;"> Категория: {{category.name}}</h4>
                 {%endfor%}
-            </ul>
             </div>
             {%else%}
-                <p>It is doesn't belong to some categories</p>
+                <p>It doesn't belong to some categories</p>
         {%endif%}
     {%endwith%} 
     
     <div class="intro">{{ page.intro  | safe }}</div>
     
     <div id="content">
-    {%for el in page.body%}      
-            {{el}}
+
+    {%for block in page.body%}
+               {{block}}
     {%endfor%}
+
         <div id="image-list">
             {% for img in page.gallery_images.all %}
                 <div id="image">
-                {% image img.image fill-320x240 %}
+                {% image img.image fill-240x200 %}
                 <p>{{img.caption}}</p>
                 </div>                
             {%endfor%}
