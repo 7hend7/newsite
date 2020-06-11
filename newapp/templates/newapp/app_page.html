@@ -1,30 +1,30 @@
 {% extends "base.html" %}
 
-{% load wagtailcore_tags wagtailimages_tags %}
+{% load wagtailcore_tags wagtailimages_tags navigation_tags %}
 
 {% block body_class %}template-theblogpage{% endblock %}
 
 {% block content %}
 <div id="page" class="container">
-    	<div class="title">
-		<h2>{{ page.title }}</h2>
-		<p class="meta">{{ page.date_published }}</p><!--???-->
-    	</div>
-        
     {% with categories=page.categories.all%}
         {%if categories%}
             
             <div>
                 {%for category in categories%}
-                    {% image category.icon fill-50x50 style=""%}
-                    <h4 style="float:left;"> Категория: {{category.name}}</h4>
+                    {% image category.icon fill-50x50 class="image-category" %}<!--(scale-50% fill-50x50)style="" class="" id="" -->
+                    <p id="category" style=""> Категория:<a href="?cat_id={{category.id}}"> {{category.name}}</a><p>
                 {%endfor%}
             </div>
             {%else%}
                 <p>It doesn't belong to some categories</p>
         {%endif%}
     {%endwith%} 
-    
+    	<div class="title">
+		<h2>{{ page.title }}</h2>		
+		<p class="meta">{{ page.date_published }}</p><!--???-->
+		
+    	</div>
+            
     <div class="intro">{{ page.intro  | safe }}</div>
     
     <div id="content">
@@ -36,7 +36,7 @@
         <div id="image-list">
             {% for img in page.gallery_images.all %}
                 <div id="image">
-                {% image img.image fill-240x200 %}
+                {% image img.image fill-240x200%}<!--fill-240x200-->
                 <p>{{img.caption}}</p>
                 </div>                
             {%endfor%}

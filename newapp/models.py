@@ -49,6 +49,10 @@ class AppIndexPage(Page):
 
     subpage_types = ['AppPage']
 
+    def get(self, request, *args, **kwargs):
+        self.cat_id = request.GET["cat_id"]
+        return super(AppPage, self).get(request, *args, **kwargs)
+
     # Defines a method to access the children of the page (e.g. BlogPage
     # objects). On the demo site we use this on the HomePage
     def children(self):
@@ -120,7 +124,7 @@ class AppPage(Page):
         )
 
     categories = ParentalManyToManyField('newapp.AppCategory', blank=True)
-
+    
     def get_first_image(self):
         # return None
         # return AppPageGalleryImage.objects.first(). # .first()
@@ -133,7 +137,13 @@ class AppPage(Page):
 
     def get_page_images(self):
         return AppPageGalleryImage.objects.filter(page__id=self.id)
-
+    
+    def get_by_category(self):
+        res = self.objects.filter(categories=self.categories)
+        raise Exception(res.count())
+        return res 
+        
+    
     content_panels = Page.content_panels + [
         FieldPanel('subtitle', classname="full"),
         FieldPanel('intro', classname="full"),
@@ -152,7 +162,7 @@ class AppPage(Page):
 
 
 class AppPageGalleryImage(Orderable):
-    '''Related images with AppPage'''
+    '''Images witch related with AppPage'''
     page = ParentalKey(AppPage, on_delete=models.CASCADE,
                        related_name='gallery_images')
     image = models.ForeignKey('wagtailimages.Image', on_delete=models.CASCADE, related_name='image')

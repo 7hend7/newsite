@@ -97,6 +97,11 @@
 		margin: 0 auto;
 		width: auto;
 	}
+	
+	.image-category{
+	
+    	float: right;
+	}
 
 /*********************************************************************************/
 /* List Styles                                                                   */
@@ -626,6 +631,9 @@
     }
 
 
+    #category{
+            font-size: 10pt; 
+    }
 
 
 
