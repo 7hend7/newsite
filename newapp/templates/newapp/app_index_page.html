@@ -10,18 +10,18 @@
 
 	<div class="boxA">
 	{% if appages %}
-        {% for blog in appages %}
+        {% for page in appages %}
 		<div class="box">
-		{%if blog.get_image_count %}
-    		{% image blog.get_first_image fill-1200x1200-c50 as fimage %}
+		{%if page.get_image_count %}
+    		{% image page.get_first_image fill-250x150-c50 as fimage %}
 			<img src="{{ fimage.url }}" width="250" height="150" alt="" />
 		{%else%}
 			<img src="{%static 'img/default.jpg'%}" width="250" height="150" alt="" />
         {%endif%}
-			<p>{{ blog.specific.date_published }}</p>
-			<h4>{{ blog.specific.subtitle|truncatechars:35 }}</h4>    
-			<p>{{ blog.specific.intro|safe|truncatechars:35 }}</p>
-			<a href="{% pageurl blog %}" class="button">Read More</a>
+			<p>{{ page.specific.date_published }}</p>
+			<h4>{{ page.specific.subtitle|truncatechars:35 }}</h4>    
+			<p>{{ page.specific.intro|safe|truncatechars:35 }}</p>
+			<a href="{% pageurl page %}" class="button">Read More</a>
 		</div>
 		{%endfor%}
 	{%else%}	

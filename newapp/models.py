@@ -50,7 +50,6 @@ class AppIndexPage(Page):
     subpage_types = ['AppPage']
 
     def get(self, request, *args, **kwargs):
-        self.cat_id = request.GET["cat_id"]
         return super(AppPage, self).get(request, *args, **kwargs)
 
     # Defines a method to access the children of the page (e.g. BlogPage
@@ -58,16 +57,20 @@ class AppIndexPage(Page):
     def children(self):
         return self.get_children().specific().live()
 
-    def get_livepages(self):
-        pages = AppPage.objects.live().descendant_of(self).order_by('-date_published')  # '-first_published_at'  
+    def get_livepages(self, request):
+        cat_id = request.GET.get('cat_id')
+        if cat_id:
+            pages = AppPage.objects.live().descendant_of(self).filter(categories__id = cat_id).order_by('-date_published')
+        else:
+            pages = AppPage.objects.live().descendant_of(self).order_by('-date_published')  # '-first_published_at'
         return pages
 
     # Pagination for the index page. We use the `django.core.paginator` as any
     # standard Django app would, but the difference here being we have it as a
     # method on the model rather than within a view function
-    def paginate(self, request, *args):
+    def paginate(self, request, **kwargs):
         page = request.GET.get('page')
-        paginator = Paginator(self.get_livepages(), 3)
+        paginator = Paginator(self.get_livepages(request), 3)
         try:
             pages = paginator.page(page)
         except PageNotAnInteger:
@@ -95,7 +98,8 @@ class AppPageTag(TaggedItemBase):
     the BlogPage object and tags. There's a longer guide on using it at
     http://docs.wagtail.io/en/latest/reference/pages/model_recipes.html#tagging
     """
-    content_object = ParentalKey('AppPage', related_name='tagged_items', on_delete=models.CASCADE)
+    content_object = ParentalKey('AppPage',
+                                 related_name='tagged_items', on_delete=models.CASCADE)
 
 
 class AppPage(Page):
@@ -137,13 +141,12 @@ class AppPage(Page):
 
     def get_page_images(self):
         return AppPageGalleryImage.objects.filter(page__id=self.id)
-    
+
     def get_by_category(self):
         res = self.objects.filter(categories=self.categories)
         raise Exception(res.count())
-        return res 
-        
-    
+        return res
+
     content_panels = Page.content_panels + [
         FieldPanel('subtitle', classname="full"),
         FieldPanel('intro', classname="full"),
