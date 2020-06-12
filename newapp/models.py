@@ -22,7 +22,7 @@ from wagtail.embeds.blocks import EmbedBlock
 from wagtail.core.blocks import (
     CharBlock, ChoiceBlock, RichTextBlock, StreamBlock, StructBlock, TextBlock,
     )
-from .blocks import BaseStreamBlock, ImageBlock, HeadingBlock, BlockQuote
+from .blocks import BaseStreamBlock, ImgStreamBlock
 # snippets
 from wagtail.snippets.models import register_snippet
 # pagination
@@ -39,7 +39,7 @@ class AppIndexPage(Page):
         null=True,
         blank=True,
         related_name='+',
-        help_text='image for Index page'
+        help_text='Main image for index page'
         )
 
     content_panels = Page.content_panels + [
@@ -70,7 +70,7 @@ class AppIndexPage(Page):
     # method on the model rather than within a view function
     def paginate(self, request, **kwargs):
         page = request.GET.get('page')
-        paginator = Paginator(self.get_livepages(request), 3)
+        paginator = Paginator(self.get_livepages(request), 6)
         try:
             pages = paginator.page(page)
         except PageNotAnInteger:
@@ -95,11 +95,16 @@ class AppIndexPage(Page):
 class AppPageTag(TaggedItemBase):
     """
     This model allows us to create a many-to-many relationship between
-    the BlogPage object and tags. There's a longer guide on using it at
+    the AppPage object and tags. There's a longer guide on using it at
     http://docs.wagtail.io/en/latest/reference/pages/model_recipes.html#tagging
     """
     content_object = ParentalKey('AppPage',
-                                 related_name='tagged_items', on_delete=models.CASCADE)
+        related_name='tagged_items', on_delete=models.CASCADE)
+
+
+class ImgPageTag(TaggedItemBase):
+    content_object = ParentalKey('ImgPage',
+        related_name='tagged_items', on_delete=models.CASCADE)
 
 
 class AppPage(Page):
@@ -128,7 +133,7 @@ class AppPage(Page):
         )
 
     categories = ParentalManyToManyField('newapp.AppCategory', blank=True)
-    
+
     def get_first_image(self):
         # return None
         # return AppPageGalleryImage.objects.first(). # .first()
@@ -161,6 +166,42 @@ class AppPage(Page):
     # -
     search_fields = Page.search_fields + [
         index.SearchField('body'),
+        ]
+
+
+class ImgPage(Page):
+    '''Galery images page'''
+    image = models.ForeignKey(
+       'wagtailimages.Image',
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='+',
+        help_text='Main image for gallery page'
+        )
+
+    context_object_name = "images"
+    intro = RichTextField(
+    help_text='Text to describe the page', blank=True)
+
+    images = StreamField(
+    ImgStreamBlock, verbose_name="Images", blank=True)
+
+    date_published = models.DateField(
+        "Date page published",
+        blank=True,
+        null=True
+        )
+    tags = ClusterTaggableManager(through=ImgPageTag, blank=True)
+    categories = ParentalManyToManyField('newapp.AppCategory', blank=True)
+
+    content_panels = Page.content_panels + [  
+        FieldPanel('intro', classname="full"),
+        StreamFieldPanel('images'),
+        FieldPanel('date_published'),
+        FieldPanel('categories'),
+        FieldPanel('tags'),
+        ImageChooserPanel("image"),
         ]
 
 

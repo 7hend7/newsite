@@ -65,3 +65,16 @@ class BaseStreamBlock(StreamBlock):
         help_text='Insert an embed URL e.g https://www.youtube.com/embed/SGJFWirQ3ks',
         icon="fa-s15",
         template="blocks/embed_block.html")
+
+
+# Images StreamBlocks
+class ImgStreamBlock(StreamBlock):
+    """
+    Define the custom blocks that `StreamField` will utilize
+    """
+    image_block = ImageBlock(template="blocks/gallery_image_block.html")
+    embed_block = EmbedBlock(
+        help_text='Insert an embed URL e.g https://www.youtube.com/embed/SGJFWirQ3ks',
+        icon="fa-s15",
+        template="blocks/embed_block.html")
+

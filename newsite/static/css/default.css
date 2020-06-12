@@ -7,7 +7,8 @@
 	{
 		margin: 0px;
 		padding: 0px;
-		background: #000 url(../img/img01.jpg) no-repeat center center;
+		#background: #000 url(../img/img01.jpg) no-repeat center center;
+		background:black;
 		font-family: 'Source Sans Pro', sans-serif;
 		font-size: 12pt;
 		font-weight: 300;
@@ -266,7 +267,7 @@
 	#header-wrapper
 	{
 		overflow: hidden;
-		height: 40em;
+		height: 30em;
 	}
 
 	#header
@@ -619,7 +620,14 @@
    figcaption {
     color: #fff; /* Цвет текста */
    }
-   
+
+	#banner
+	{
+		position: relative;
+		margin-top: 0em;
+		padding: 0em 0em;
+		# background: #000000b;
+	}
 /*********************************************************************************/
 /* text								                                             */
 /*********************************************************************************/
