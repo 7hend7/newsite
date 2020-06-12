@@ -270,6 +270,30 @@ class FooterText(models.Model):
         verbose_name_plural = 'Footer Text'
 
 
+@register_snippet
+class DefaultBannerImage(models.Model):
+    """ """
+    image = models.ForeignKey(
+       'wagtailimages.Image',
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='+',
+        help_text='Default image for banner'
+        )   
+
+    panels = [
+        ImageChooserPanel("image"),
+        ]
+    
+    class Meta:
+        verbose_name_plural = 'Default image for banner'
+
+
+
+
+
+
 
 
 

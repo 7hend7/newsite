@@ -1,4 +1,4 @@
-{% load navigation_tags wagtailimages_tags  %}
+{% load navigation_tags wagtailimages_tags static %}
 
 <div id="header-wrapper">
 	<div id="header" class="container">
@@ -16,12 +16,15 @@
 		</div>
 	
 	</div>
+	
+<div id="banner" class="container">	
 {%if page.image%}
-<div id="banner" class="container">
     {% image page.image fill-1200x300%}
-    
-</div>
+{%else%}
+<img src="{% static 'img/banner.jpg' %}" alt="default banner" style="width:1200px;height:300px;">
 {%endif%}	
+</div>
+
 	<div id="bheader" class="container">
         {% block breadcrumbs %}
             {# breadcrumbs is defined in base/templatetags/navigation_tags.py #}
