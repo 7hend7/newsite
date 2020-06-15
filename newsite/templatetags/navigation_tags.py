@@ -111,4 +111,23 @@ def get_tagged_items(context):
         'tag_pages': tag_pages,
         'raquest': context['request'],
     }
-    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -111,16 +111,16 @@ class AppPage(Page):
     intro = RichTextField(
         help_text='Text to describe the page', blank=True
         )
-    '''
+
     image = models.ForeignKey(
         'wagtailimages.Image',
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
         related_name='+',
-        help_text='image for Index page'
+        help_text='Banner image for page'
         )
-    '''
+
     body = StreamField(
         BaseStreamBlock, verbose_name="Page body", blank=True
         )
@@ -155,7 +155,7 @@ class AppPage(Page):
     content_panels = Page.content_panels + [
         FieldPanel('subtitle', classname="full"),
         FieldPanel('intro', classname="full"),
-        # ImageChooserPanel('image'),
+        ImageChooserPanel('image'),
         StreamFieldPanel('body'),
         FieldPanel('date_published'),
         FieldPanel('categories'),
@@ -285,7 +285,10 @@ class DefaultBannerImage(models.Model):
     panels = [
         ImageChooserPanel("image"),
         ]
-    
+
+    def __str__(self):
+        return "Default image banner"    
+
     class Meta:
         verbose_name_plural = 'Default image for banner'
 

@@ -85,6 +85,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                # our context processors
+                'newapp.middleware.default_banner',
             ],
 	'libraries':{
 	        'navigation_tags': 'newsite.templatetags.navigation_tags', # our tag files path

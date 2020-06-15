@@ -20,8 +20,10 @@
 <div id="banner" class="container">	
 {%if page.image%}
     {% image page.image fill-1200x300%}
+{%elif default_banner %}
+    {%image default_banner fill-1200x300%}
 {%else%}
-<img src="{% static 'img/banner.jpg' %}" alt="default banner" style="width:1200px;height:300px;">
+    <img src="{% static 'img/banner.jpg' %}" alt="default banner" style="width:1200px;height:300px;">
 {%endif%}	
 </div>
 
