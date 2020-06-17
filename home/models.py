@@ -6,6 +6,9 @@ from wagtail.core.fields import StreamField
 from newapp.blocks import BaseStreamBlock
 from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, StreamFieldPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.core.models import Page, Orderable
+from modelcluster.fields import ParentalKey, ParentalManyToManyField
+from wagtail.admin.edit_handlers import MultiFieldPanel, PageChooserPanel
 
 class HomePage(Page):
 
@@ -41,4 +44,34 @@ class HomePage(Page):
         FieldPanel('intro', classname="full"),
         ImageChooserPanel('image'),
         StreamFieldPanel('body'),
+        InlinePanel('shown_pages', label="Shown pages"),
         ]
+
+
+class HomeShownPage(Orderable):
+    '''These are the pages which related with homepage here'''
+    page = ParentalKey(HomePage, on_delete=models.CASCADE,
+                       related_name='shown_pages')
+    shown_page = models.ForeignKey('wagtailcore.Page', on_delete=models.CASCADE, related_name='shown_page')
+    featured_title = models.CharField(
+        null=True,
+        blank=True,
+        max_length=255,
+        help_text='Title to display above the promo copy'
+    )
+    panels = [
+            MultiFieldPanel([
+                FieldPanel('featured_title'),
+                PageChooserPanel('shown_page'),
+            ], heading="Featured homepage sections", classname="collapsible"),        
+        ]
+
+
+
+
+
+
+
+
+
+
