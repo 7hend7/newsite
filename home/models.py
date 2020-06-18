@@ -10,6 +10,8 @@ from wagtail.core.models import Page, Orderable
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from wagtail.admin.edit_handlers import MultiFieldPanel, PageChooserPanel
 
+from newapp.models import AppPage
+
 class HomePage(Page):
 
     intro = RichTextField(
@@ -30,12 +32,22 @@ class HomePage(Page):
         BaseStreamBlock(), verbose_name="Page body", blank=True
     )
 
-    def get_childs_page(self):
+    def get_children_page(self):
         return self.get_children().specific().live()
+
+    # TODO!
+    def get_shown_page(self):
+        # pass
+        res = HomeShownPage.objects.filter(page__id=self.id)
+        # raise Exception(res[0].shown_page.image)
+        # pages = res.
+        # raise Exception(res)
+        return res # HomeShownPage.objects.filter(page__id=self.id)
 
     def get_context(self, request):
         context = super().get_context(request)
-        context['child_pages'] = self.get_childs_page()
+        context['children_pages'] = self.get_children_page()
+        context['shown_pages'] = self.get_shown_page()
         # raise Exception(str(context))
         return context
 
@@ -52,7 +64,7 @@ class HomeShownPage(Orderable):
     '''These are the pages which related with homepage here'''
     page = ParentalKey(HomePage, on_delete=models.CASCADE,
                        related_name='shown_pages')
-    shown_page = models.ForeignKey('wagtailcore.Page', on_delete=models.CASCADE, related_name='shown_page')
+    shown_page = models.ForeignKey('wagtailcore.Page', on_delete=models.CASCADE, related_name='shown_page')  # 'wagtailcore.Page'
     featured_title = models.CharField(
         null=True,
         blank=True,

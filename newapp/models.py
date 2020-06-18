@@ -149,7 +149,7 @@ class AppPage(Page):
 
     def get_by_category(self):
         res = self.objects.filter(categories=self.categories)
-        raise Exception(res.count())
+        # raise Exception(res.count())
         return res
 
     content_panels = Page.content_panels + [

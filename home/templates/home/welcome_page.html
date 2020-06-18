@@ -1,12 +1,37 @@
-{% load static i18n wagtailcore_tags %}
+{% load static i18n wagtailcore_tags navigation_tags wagtailimages_tags %}
+
 <h2>
 {{page.title| safe}}
 </h2>
+<div id="hpage" class="hcontainer">
 
-{% for child in page.get_childs_page %}
- 
-    <!--<a href="{{ child.url }}">__</a>-->
-    {%for post in child.get_children.live%}
-         pass
-    {%endfor%}
-{%endfor%}
+<!--<div id="page" class="container">-->
+        <div class="thumbnails">
+        
+            {% for related in shown_pages %}
+           
+                <ins class="thumbnail">
+
+                           <div class="r">
+                            <h4>{{ related.featured_title }}</h4>
+  
+  
+                                    <a href="{{related.shown_page.url}}">
+                                        <!--<figure>-->
+                                            {% if related.shown_page.specific.image %}
+                                                {% image related.shown_page.specific.image fill-350x450-c100 %}<!-- fill-200x200-c100 -->
+                                            {% else %}
+                                                <img src="{%static 'img/default.jpg'%}" width="250" height="150" alt="" />
+                                            {% endif %}
+                                        <!--</figure>-->
+                                        <h4><a href="{{related.shown_page.url}}">{{related.shown_page.title}}</a></h4>
+                                    </a>
+
+                                    
+                            </div>
+                                    
+                </ins>
+                
+            {% endfor %}
+        </div>
+</div>
