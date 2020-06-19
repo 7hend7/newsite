@@ -274,20 +274,20 @@ class FooterText(models.Model):
 class DefaultBannerImage(models.Model):
     """ """
     image = models.ForeignKey(
-       'wagtailimages.Image',
+        'wagtailimages.Image',
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
         related_name='+',
         help_text='Default image for banner'
-        )   
+        )
 
     panels = [
         ImageChooserPanel("image"),
         ]
 
     def __str__(self):
-        return "Default image banner"    
+        return "Default image banner"
 
     class Meta:
         verbose_name_plural = 'Default image for banner'

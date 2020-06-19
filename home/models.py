@@ -42,7 +42,7 @@ class HomePage(Page):
         # raise Exception(res[0].shown_page.image)
         # pages = res.
         # raise Exception(res)
-        return res # HomeShownPage.objects.filter(page__id=self.id)
+        return res  # HomeShownPage.objects.filter(page__id=self.id)
 
     def get_context(self, request):
         context = super().get_context(request)
@@ -75,7 +75,7 @@ class HomeShownPage(Orderable):
             MultiFieldPanel([
                 FieldPanel('featured_title'),
                 PageChooserPanel('shown_page'),
-            ], heading="Featured homepage sections", classname="collapsible"),        
+            ], heading="Featured homepage sections", classname="collapsible"),
         ]
 
 
