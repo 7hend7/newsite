@@ -1,0 +1,7 @@
+{% load wagtailimages_tags %}
+
+<div class="gallery-box">
+    {% image self.image fill-550x550 %}
+    <h4>{{ self.caption }} - {{ self.attribution }}<h4>
+
+</div>

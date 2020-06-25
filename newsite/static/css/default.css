@@ -393,7 +393,7 @@
 	#page
 	{
 		overflow: hidden;
-		width: 1000px;
+		width: 1200px;
 		padding: 7em 100px 3em 100px;
 		background: #FFF;
 	}
@@ -408,6 +408,11 @@
 	{
     	width:inherit;
 	}
+	
+	#page .boxB
+	{
+    	width:inherit;
+	}	
 	
 	#page .box
 	{
@@ -644,13 +649,13 @@
     }
 
 /*********************************************************************************/
-/* home shown pages							                                         */
+/* home shown pages							                                     */
 /*********************************************************************************/
 	#hpage
 	{
 		overflow: hidden;
-		width: 1400px;
-		padding: 7em 100px 3em 100px;
+		width: 1200px;
+		padding: 4em 100px 3em 100px;
 		background: black;
 	}
 
@@ -658,14 +663,17 @@
 	{
 		overflow: hidden;
 		margin: 0em auto;
-		width: 1800px;
+		width: 1200px;
 	}
 	
-	
+    #hpage h3{
+        text-align:center;
+        color:white
+    }
 .thumbnails
 {
 /* Компенсируем отступы между float-блоками, чтобы они занимали все доступное пространство */
-margin: -0em 0 0 -2em;
+margin: 0em 0 0 -2em;
 
 /* Выравнивание по центру */
 text-align: center;
@@ -704,7 +712,27 @@ margin: 2em 0 0 2em;
 float: left;
 }
 
+/*********************************************************************************/
+/* home shown pages							                                     */
+/*********************************************************************************/
 
+	#gallery
+	{
+		overflow: hidden;
+		width: 1200px;
+		padding: 7em 100px 3em 100px;
+		background: #FFF;
+	}
 
+	#gallery .gallery-box
+	{
+    	border-style:outset; # dashed;
+    	border-color:white;
+		margin-bottom: 2em;
+        display: inline-block; /* Строчно-блочный элемент */
+        padding: 15px;
+	}
 
-
+/*********************************************************************************/
+/* 				                                                 */
+/*********************************************************************************/

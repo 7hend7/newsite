@@ -180,12 +180,12 @@ class ImgPage(Page):
         help_text='Main image for gallery page'
         )
 
-    context_object_name = "images"
+    # context_object_name = "gallery"
     intro = RichTextField(
-    help_text='Text to describe the page', blank=True)
-
+        help_text='Text to describe the page', blank=True)
+    # It is for images colection field
     images = StreamField(
-    ImgStreamBlock, verbose_name="Images", blank=True)
+        ImgStreamBlock, verbose_name="Images", blank=True)
 
     date_published = models.DateField(
         "Date page published",
@@ -195,7 +195,7 @@ class ImgPage(Page):
     tags = ClusterTaggableManager(through=ImgPageTag, blank=True)
     categories = ParentalManyToManyField('newapp.AppCategory', blank=True)
 
-    content_panels = Page.content_panels + [  
+    content_panels = Page.content_panels + [
         FieldPanel('intro', classname="full"),
         StreamFieldPanel('images'),
         FieldPanel('date_published'),
@@ -203,6 +203,11 @@ class ImgPage(Page):
         FieldPanel('tags'),
         ImageChooserPanel("image"),
         ]
+
+    def get_context(self, request):
+        context = super().get_context(request)
+        # raise Exception(context['page'].intro)
+        return context
 
 
 class AppPageGalleryImage(Orderable):
