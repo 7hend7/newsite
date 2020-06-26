@@ -8,7 +8,7 @@ body {
  margin: 0;
  padding: 0;
  font-family: Arial, sans-serif;
- # background-image: url("https://dwstroy.ru/lessons/les3649/demo/img/concrete-texture.png");
+ background-image: url("https://dwstroy.ru/lessons/les3649/demo/img/concrete-texture.png");
 }
 .carousel-inner h3 {
  background-color: rgba(20, 49, 68, 0.6);
