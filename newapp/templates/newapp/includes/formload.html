@@ -1,0 +1,57 @@
+<!-- use widget_tweaks widget "https://pypi.org/project/django-widget-tweaks/"-->
+
+    {% load widget_tweaks %}
+    {% for hidden_field in form.hidden_fields %}
+      {{ hidden_field }}
+    {% endfor %}
+
+{% if form.non_field_errors %}
+  <div class="alert alert-danger" role="alert">
+    {% for error in form.non_field_errors %}
+      {{ error }}
+    {% endfor %}
+  </div>
+{% endif %}
+
+{% for field in form.visible_fields %}
+
+  {%if field.html_name == "products"%}
+  <div class="form-group" style="color:red">
+  {%else%}
+  <div class="form-group">
+  {%endif%}
+  
+    {{ field.label_tag }}
+
+    {% if form.is_bound %}
+    
+      {% if field.errors %}
+        {% render_field field class="form-control is-invalid" %}
+        
+        {% for error in field.errors %}
+          <div class="invalid-feedback">
+            {{ error }}
+          </div>
+        {% endfor %}
+        
+      {% else %}
+        {% render_field field class="form-control is-valid" %}
+      {% endif %}
+      
+    {% else %}
+        {%if field.html_name == 'price' or field.html_name == 'in_stock' or field.html_name == 'count'%}
+          {% render_field field class="form-control" style="width:5em" min="0"%}      
+ 
+        {%else%}
+          {% render_field field class="form-control"%}
+        {%endif%}
+    {% endif %}
+
+    {% if field.help_text %}
+      <small class="form-text text-muted">{{ field.help_text }}</small>
+    {% endif %}
+  </div>
+{% endfor %}
+
+<!--{{form.price|attr:"style='width:5em'"}}-->
+
