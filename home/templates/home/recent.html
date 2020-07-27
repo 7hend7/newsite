@@ -1,0 +1,51 @@
+{% load static i18n wagtailcore_tags navigation_tags wagtailimages_tags %}
+
+    <!-- s-content
+    ================================================== -->
+    <section class="s-content">
+
+        <div class="row entries-wrap wide">
+           <div class="entries">
+        {%with recent_pages=page.get_recent_apppage%}
+    	{% if recent_pages %}
+        	{% for page in recent_pages %}        
+
+
+                <article class="col-block">
+                    
+                    <div class="item-entry" data-aos="zoom-in">
+                        <div class="item-entry__thumb">
+                            <a href="{% pageurl page %}" class="item-entry__thumb-link">
+                            {%if page.image %}
+                                {% image page.image fill-400x300-c50 as fimage %}
+                                <img src="{{ fimage.url }}" alt=""> 
+                    		{%else%}
+                    			<img src="{%static 'img/default.jpg'%}" width="400" height="300" alt="" />                                
+                            {%endif%}                               
+                            </a>
+                        </div>
+        
+                        <div class="item-entry__text">    
+                            <div class="item-entry__cat">
+                                    {% for category in page.specific.categories.all %}
+                                        <a href="">{{ category.name }}</a>
+                                    {% endfor %}
+                            </div>
+    
+                            <h1 class="item-entry__title"><a href="{% pageurl page %}">{{page.title}}</a></h1>
+                                
+                            <div class="item-entry__date">
+                                <a href="">{{page.date_published}}</a>
+                            </div>
+                        </div>
+                    </div> <!-- item-entry -->
+
+                </article> <!-- end article -->            
+            
+            {%endfor%}
+        {% endif %}
+        {%endwith%}
+            </div> <!-- end entries -->
+        </div> <!-- end entries-wrap -->
+
+    </section> <!-- end s-content -->

@@ -51,6 +51,10 @@ class HomePage(Page):
         # raise Exception(str(context))
         return context
 
+    def get_recent_apppage(self):
+        res = AppPage.objects.order_by("-date_published")[:4]
+        return res
+
     content_panels = Page.content_panels + [
         # FieldPanel('subtitle', classname="full"),
         FieldPanel('intro', classname="full"),

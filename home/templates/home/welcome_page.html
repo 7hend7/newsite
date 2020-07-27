@@ -1,37 +1,40 @@
 {% load static i18n wagtailcore_tags navigation_tags wagtailimages_tags %}
 
-<h2>
-{{page.title| safe}}
-</h2>
-<div id="hpage" class="hcontainer" style="background:black">
-    <h3> To read... </h3>
-<!--<div id="page" class="container">-->
-        <div class="thumbnails">
-        
-            {% for related in shown_pages %}
-           
-                <ins class="thumbnail">
 
-                           <div class="r">
-                            <h4>{{ related.featured_title }}</h4>
-  
-  
-                                    <a href="{{related.shown_page.url}}">
-                                        <!--<figure>-->
-                                            {% if related.shown_page.specific.image %}
-                                                {% image related.shown_page.specific.image fill-350x450-c100 %}<!-- fill-200x200-c100 -->
-                                            {% else %}
-                                                <img src="{%static 'img/default.jpg'%}" width="250" height="150" alt="" />
-                                            {% endif %}
-                                        <!--</figure>-->
-                                        <h4><a href="{{related.shown_page.url}}">{{related.shown_page.title}}</a></h4>
-                                    </a>
+ <!-- featured slider
+    ================================================== -->
+    
+    <section class="s-featured">
+<!-- <h2 style="text-align:center; color:gray"> -->
+<!--#{{page.title| safe}}-->
+</h2>    
+        <div class="row">
+            <div class="col-full">
 
-                                    
-                            </div>
-                                    
-                </ins>
-                
-            {% endfor %}
+                <div class="featured-slider featured" data-aos="zoom-in">
+                {% for related in shown_pages %}
+                    <div class="featured__slide">
+                        <div class="entry">
+
+                            <div class="entry__background" style="background-image:url('media/{{related.shown_page.specific.image.file}}');"></div>
+                            
+                            <div class="entry__content">
+                            {% with categories=related.shown_page.specific.categories.all %}
+                                {% if categories %}
+                                    {% for category in categories %}
+                                        <span class="entry__category"><a href="#0">{{ category.name }}</a></span>
+                                    {% endfor %}   
+                                {%endif%}    
+                                <h1><a href="{{related.shown_page.url}}" title="">{{related.shown_page.title}}</a></h1>
+                            {%endwith%}
+                            </div> <!-- end entry__content -->
+                            
+                        </div> <!-- end entry -->
+                    </div> <!-- end featured__slide -->
+                {%endfor%}
+                </div> <!-- end featured -->
+
+            </div> <!-- end col-full -->
         </div>
-</div>
+    </section> <!-- end s-featured -->
+{% include "home/recent.html" %}

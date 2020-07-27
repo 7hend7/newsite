@@ -1,37 +1,45 @@
 {% load navigation_tags wagtailimages_tags static %}
 
-<div id="header-wrapper">
-	<div id="header" class="container">
-		<div id="logo">
-			<h1><a href="#">Porphyrio</a></h1>
-		</div>		
-		<div id="menu">
-        	{% block main_navigation %}
-        		<ul>
-                            {# main_menu is defined in ./templatetags/navigation_tags.py #}                     
+    
+    <!-- header ================================================== -->
+    <header class="s-header header">
+
+        <div class="header__logo">
+            <a class="logo" href="index.html">
+                <img src="{% static 'img/logo.svg' %}" alt="Homepage">
+            </a>
+        </div> <!-- end header__logo -->
+
+        <a class="header__search-trigger" href="#0"></a>
+        <div class="header__search">
+
+            <form role="search" method="get" class="header__search-form" action="#">
+                <label>
+                    <span class="hide-content">Search for:</span>
+                    <input type="search" class="search-field" placeholder="Type Keywords" value="" name="s" title="Search for:" autocomplete="off">
+                </label>
+                <input type="submit" class="search-submit" value="Search">
+            </form>
+
+            <a href="#0" title="Close Search" class="header__overlay-close">Close</a>
+
+        </div>  <!-- end header__search -->
+
+        <a class="header__toggle-menu" href="#0" title="Menu"><span>Menu</span></a>
+        {% block main_navigation %}        
+        <nav class="header__nav-wrap">
+
+            <h2 class="header__nav-heading h6">Navigate to</h2>
+            
+            <ul class="header__nav">
+                <li class="current"><a href="/" title="">Home</a></li>
+                            {# main_menu is defined in ..templatetags/navigation_tags.py #}
                             {% get_site_root as site_root %}
                             {% top_menu parent=site_root calling_page=self %}                
-                </ul>
-            {% endblock %}                
-		</div>
-	</div>
-	
-<div id="banner" class="container">	
-{%if page.image%}
-    {% image page.image fill-1200x300%}
-{%elif default_banner %}
-    {%image default_banner fill-1200x300%}
-{%else%}
-    <img src="{% static 'img/banner.jpg' %}" alt="default banner" style="width:1200px;height:300px;">
-{%endif%}	
-</div>
+            </ul> <!-- end header__nav -->
 
-	<div id="bheader" class="container">
-        {% block breadcrumbs %}
-            {# breadcrumbs is defined in base/templatetags/navigation_tags.py #}
-            {% breadcrumbs %}
-        {% endblock breadcrumbs %}	
-    </div>
+            <a href="#0" title="Close Menu" class="header__overlay-close close-mobile-menu">Close</a>
 
-    
-</div>
+        </nav> <!-- end header__nav-wrap -->
+        {% endblock main_navigation %}
+    </header> <!-- s-header -->
