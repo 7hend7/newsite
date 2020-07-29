@@ -2,46 +2,74 @@
 {% load wagtailcore_tags navigation_tags wagtailimages_tags %}
 {% load static %}
 {% block content %}
+   <!-- s-content
+    ================================================== -->
+    <section class="s-content s-content--top-padding">
 
-
-<div id="page" class="container">
-	<div class="title">
-		<h2>Maecenas luctus lectus</h2>	
-	</div>
-
-	<div class="boxA">
-	{% if appages %}
-        {% for page in appages %}
-		<div class="box">
-		{%if page.get_image_count %}
-    		{% image page.get_first_image fill-250x150-c50 as fimage %}
-			<img src="{{ fimage.url }}" width="250" height="150" alt="" />
-		{%else%}
-			<img src="{%static 'img/default.jpg'%}" width="250" height="150" alt="" />
-        {%endif%}
-			<p>{{ page.specific.date_published }}</p>
-			<h4>{{ page.specific.subtitle|truncatechars:35 }}</h4>    
-			<p>{{ page.specific.intro|safe|truncatechars:35 }}</p>
-			<a href="{% pageurl page %}" class="button">Read More</a>
-		</div>
-		{%endfor%}
-	{%else%}	
-       <div class="col-md-12">
-           <p>Oh, snap. Looks like we were too busy baking to write any blog posts. Sorry.</p>
-       </div>	
-    {%endif%}    
-	</div>
-    <!-- paginations-->
-    {% if appages.paginator.count > 1 %}
-    <div class="title">
-            <div class="row">
-                <div class="col-md-12">
-                {% include "includes/pagination.html" with subpages=appages %}
-                </div>
+        <div class="row narrow">
+            <div class="col-full s-content__header" data-aos="fade-up">
+                <h1 class="display-1 display-1--with-line-sep">Category: Lifestyle</h1>
+                <p class="lead">Dolor similique vitae. Exercitationem quidem occaecati iusto. Id non vitae enim quas error dolor maiores ut. Exercitationem earum ut repudiandae optio veritatis animi nulla qui dolores.</p>
             </div>
-    </div>
-    {% endif %}	
-</div>
+        </div>
+        
+        <div class="row entries-wrap add-top-padding wide">
+            <div class="entries">
+            {% if appages %}
+                {% for page in appages %}
+                <article class="col-block">
+                    
+                    <div class="item-entry" data-aos="zoom-in">
+                        <div class="item-entry__thumb">
+                            <a href="{% pageurl page %}" class="item-entry__thumb-link">
+                            {%if page.image %}
+                                {% image page.image fill-400x300-c50 as fimage %}
+                                <img src="{{ fimage.url }}" alt=""> 
+                    		{%else%}
+                    			<img src="{%static 'img/default.jpg'%}" width="400" height="300" alt="" />                                
+                            {%endif%}                               
+                            </a>
+                        </div>
+        
+                        <div class="item-entry__text">
+                            <div class="item-entry__cat">
+                                    {% for category in page.specific.categories.all %}
+                                        <a href="">{{ category.name }}</a>
+                                    {% endfor %} 
+                            </div>
+    
+                            <h1 class="item-entry__title"><a href="{% pageurl page %}">{{page.title}}</a></h1>
+                                
+                            <div class="item-entry__date">
+                                <a href="">{{page.date_published}}</a>
+                            </div>
+                        </div>
+                    </div> <!-- item-entry -->
 
+                </article> <!-- end article -->
+                {% endfor %}
+            {% endif %}
+            
+            </div> <!-- end entries -->
+        </div> <!-- end entries-wrap -->
 
-{% endblock content %}
+        <div class="row pagination-wrap">
+            <div class="col-full">
+                <nav class="pgn" data-aos="fade-up">
+                    <ul>
+                        <li><a class="pgn__prev" href="#0">Prev</a></li>
+                        <li><a class="pgn__num" href="#0">1</a></li>
+                        <li><span class="pgn__num current">2</span></li>
+                        <li><a class="pgn__num" href="#0">3</a></li>
+                        <li><a class="pgn__num" href="#0">4</a></li>
+                        <li><a class="pgn__num" href="#0">5</a></li>
+                        <li><span class="pgn__num dots">…</span></li>
+                        <li><a class="pgn__num" href="#0">8</a></li>
+                        <li><a class="pgn__next" href="#0">Next</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+
+    </section> <!-- end s-content -->
+{% endblock content %}    

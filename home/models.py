@@ -65,7 +65,7 @@ class HomePage(Page):
 
 
 class HomeShownPage(Orderable):
-    '''These are the pages which related with homepage'''
+    '''These are pages which related with homepage'''
     page = ParentalKey(HomePage, on_delete=models.CASCADE,
                        related_name='shown_pages')
     shown_page = models.ForeignKey('wagtailcore.Page', on_delete=models.CASCADE, related_name='shown_page')  # 'wagtailcore.Page'

@@ -38,6 +38,10 @@
     {% block content %}
     {% endblock content %}
 </main>
+    <!-- Extra some content before footer-->
+    {%block extra%}
+        {% include "includes/extra_content.html" %}
+    {%endblock extra%}
     <!-- Footer -->
     {%block footer%}
         {% include "includes/footer.html" %}
