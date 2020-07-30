@@ -75,7 +75,7 @@ class AppIndexPage(Page):
     # method on the model rather than within a view function
     def paginate(self, request, **kwargs):
         page = request.GET.get('page')
-        paginator = Paginator(self.get_livepages(request), 6)
+        paginator = Paginator(self.get_livepages(request), 12)
         try:
             pages = paginator.page(page)
         except PageNotAnInteger:
