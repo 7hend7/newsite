@@ -1,0 +1,8 @@
+{% load wagtailcore_tags %}
+    {%if cat_list%}   
+    <ul class="linklist">   
+        {%for category in cat_list%}                                     
+            <li><a href="{%slugurl 'index-page'%}?cat_id={{category.id}}">{{category.name}}</a></li>
+        {%endfor%}
+    </ul>
+    {%endif%}                        

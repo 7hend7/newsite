@@ -1,3 +1,4 @@
+{% load wagtailcore_tags navigation_tags wagtailimages_tags %}
     <!-- s-extra
     ================================================== -->
     <section class="s-extra">
@@ -70,20 +71,12 @@
                     </article>
                 </div> <!-- end popular_posts -->
             </div> <!-- end popular -->
-
+            <!-- ######categories###sitelinks### -->
             <div class="col-four md-six tab-full end">
                 <div class="row">
                     <div class="col-six md-six mob-full categories">
                         <h3>Categories</h3>
-        
-                        <ul class="linklist">
-                            <li><a href="#0">Lifestyle</a></li>
-                            <li><a href="#0">Travel</a></li>
-                            <li><a href="#0">Recipes</a></li>
-                            <li><a href="#0">Management</a></li>
-                            <li><a href="#0">Health</a></li>
-                            <li><a href="#0">Creativity</a></li>
-                        </ul>
+                        {% get_category_list %}
                     </div> <!-- end categories -->
         
                     <div class="col-six md-six mob-full sitelinks">

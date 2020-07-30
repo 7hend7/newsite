@@ -2,7 +2,7 @@ from django import template
 
 from wagtail.core.models import Page, Site
 
-from newapp.models import FooterText, AppPageTag
+from newapp.models import FooterText, AppPageTag, AppCategory
 
 
 register = template.Library()
@@ -112,7 +112,13 @@ def get_tagged_items(context):
     }
 
 
-
+@register.inclusion_tag('tags/category_list.html', takes_context=True)
+def get_category_list(context):
+    cat_list = AppCategory.objects.all()
+    return{
+        'cat_list': cat_list,
+        'raquest': context['request'],
+    }
 
 
 

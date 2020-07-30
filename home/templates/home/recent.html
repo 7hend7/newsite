@@ -28,7 +28,7 @@
                         <div class="item-entry__text">    
                             <div class="item-entry__cat">
                                     {% for category in page.specific.categories.all %}
-                                        <a href="">{{ category.name }}</a>
+                                        <a href="{%slugurl 'index-page'%}?cat_id={{category.id}}"> {{ category.name }}</a>
                                     {% endfor %}
                             </div>
     

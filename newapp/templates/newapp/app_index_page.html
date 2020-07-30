@@ -5,13 +5,16 @@
    <!-- s-content
     ================================================== -->
     <section class="s-content s-content--top-padding">
-
+    {% if selectcat %}    
+        {% for category in selectcat %}
         <div class="row narrow">
             <div class="col-full s-content__header" data-aos="fade-up">
-                <h1 class="display-1 display-1--with-line-sep">Category: Lifestyle</h1>
-                <p class="lead">Dolor similique vitae. Exercitationem quidem occaecati iusto. Id non vitae enim quas error dolor maiores ut. Exercitationem earum ut repudiandae optio veritatis animi nulla qui dolores.</p>
+                <h1 class="display-1 display-1--with-line-sep">Category: {{category.name}}</h1>
+                <p class="lead">{{category.intro|safe}}</p>
             </div>
         </div>
+        {% endfor %}
+    {% endif %}
         
         <div class="row entries-wrap add-top-padding wide">
             <div class="entries">
@@ -34,7 +37,7 @@
                         <div class="item-entry__text">
                             <div class="item-entry__cat">
                                     {% for category in page.specific.categories.all %}
-                                        <a href="">{{ category.name }}</a>
+                                        <a href="{%slugurl 'index-page'%}?cat_id={{category.id}}">{{ category.name }}</a>
                                     {% endfor %} 
                             </div>
     

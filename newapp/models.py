@@ -66,8 +66,12 @@ class AppIndexPage(Page):
         cat_id = request.GET.get('cat_id')
         if cat_id:
             pages = AppPage.objects.live().descendant_of(self).filter(categories__id = cat_id).order_by('-date_published')
+            self.cat = AppCategory.objects.filter(id=cat_id)
+            # TEST!
+            # raise Exception(self.cat)
         else:
             pages = AppPage.objects.live().descendant_of(self).order_by('-date_published')  # '-first_published_at'
+            self.cat = None
         return pages
 
     # Pagination for the index page. We use the `django.core.paginator` as any
@@ -90,6 +94,7 @@ class AppIndexPage(Page):
         # appages = self.get_children().live().order_by("-first_published_at")
         # AppPage.objects.descendant_of(self).live().order_by('-date_published')
         context['appages'] = self.paginate(request)
+        context['selectcat'] = self.cat
         # context['appages'] = appages
         return context
 
@@ -133,8 +138,8 @@ class AppPage(Page):
     tags = ClusterTaggableManager(through=AppPageTag, blank=True)
     date_published = models.DateField(
         "Date article published",
-        blank=True,
-        null=True
+        blank=False,
+        null=False
         )
 
     categories = ParentalManyToManyField('newapp.AppCategory', blank=True)
@@ -153,7 +158,7 @@ class AppPage(Page):
         return AppPageGalleryImage.objects.filter(page__id=self.id)
 
     def get_by_category(self):
-        res = self.objects.filter(categories=self.categories)
+        res = self.objects.filter(categories=self.categories)  # !??
         # raise Exception(res.count())
         return res
 
@@ -227,6 +232,8 @@ class AppPageGalleryImage(Orderable):
 @register_snippet
 class AppCategory(models.Model):
     name = models.CharField(max_length=255)
+    intro = RichTextField(
+        help_text='Text to describe the category', blank=True) 
     icon = models.ForeignKey(
         'wagtailimages.Image',
         null=True,
@@ -236,6 +243,7 @@ class AppCategory(models.Model):
     # - for model fields "panels"
     panels = [
         FieldPanel('name'),
+        FieldPanel('intro'),
         ImageChooserPanel('icon')
         ]
 
@@ -313,10 +321,10 @@ class FormField(AbstractFormField):
 
 class ContactPage(AbstractEmailForm):
 
-    #template = "contact_page.html"
+    # template = "contact_page.html"
     # This is the default path.
     # If ignored, Wagtail adds _landing.html to your template name
-    #landing_page_template = "contact_page_landing.html"
+    # landing_page_template = "contact_page_landing.html"
 
     intro = RichTextField(blank=True)
     thank_you_text = RichTextField(blank=True)
@@ -333,9 +341,5 @@ class ContactPage(AbstractEmailForm):
             FieldPanel("subject"),
         ], heading="Email Settings"),
     ]
-
-
-
-
 
 
