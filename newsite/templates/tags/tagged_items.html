@@ -1,7 +1,7 @@
-{% load navigation_tags wagtailcore_tags %}
+{% load wagtailcore_tags %}
 
+<ul class="linklist">
 {%for titem in tag_pages%}
-    <div class="tag-container">
-       <a href="{% pageurl titem.content_object %}" class="tag-button">{{titem.content_object.title}}</a>
-    </div>
+       <li><a href="{%slugurl 'app-tag-index-page' %}?tag={{titem.content_object.title}}">{{titem.content_object.title}}</a></li><!--titem.content_object-->
 {%endfor%}
+</ul>
