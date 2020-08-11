@@ -62,16 +62,23 @@ class AppIndexPage(Page):
     def children(self):
         return self.get_children().specific().live()
 
+    # TODO! tag
     def get_livepages(self, request):
-        cat_id = request.GET.get('cat_id')
-        if cat_id:
-            pages = AppPage.objects.live().descendant_of(self).filter(categories__id = cat_id).order_by('-date_published')
-            self.cat = AppCategory.objects.filter(id=cat_id)
-            # TEST!
+        self.cat_id = request.GET.get('cat_id')
+        self.tag = request.GET.get('tag')
+
+        pages = None
+        self.cat = None
+
+        if self.cat_id:
+            pages = AppPage.objects.live().descendant_of(self).filter(categories__id=self.cat_id).order_by('-date_published')
+            self.cat = AppCategory.objects.filter(id=self.cat_id).first()
             # raise Exception(self.cat)
-        else:
+        if self.tag:
+            pages = AppPage.objects.live().descendant_of(self).filter(tags__name=self.tag).order_by('-date_published')
+
+        if not pages:
             pages = AppPage.objects.live().descendant_of(self).order_by('-date_published')  # '-first_published_at'
-            self.cat = None
         return pages
 
     # Pagination for the index page. We use the `django.core.paginator` as any
@@ -94,7 +101,8 @@ class AppIndexPage(Page):
         # appages = self.get_children().live().order_by("-first_published_at")
         # AppPage.objects.descendant_of(self).live().order_by('-date_published')
         context['appages'] = self.paginate(request)
-        context['selectcat'] = self.cat
+        context['category'] = self.cat
+        context['tag'] = self.tag
         # context['appages'] = appages
         return context
 
@@ -260,10 +268,11 @@ class AppTagIndexPage(Page):
         # filter by tag
         tag = request.GET.get('tag')
         appages = AppPage.objects.filter(tags__name=tag)
+        # raise Exception(tag)
         # -
         context = super().get_context(request)
         context['appages'] = appages
-        context['tag'] = tag
+        # context['tag'] = tag
         return context
 
 

@@ -8,7 +8,7 @@
     {%for page in appages%}
         <li><a href="{%pageurl page%}">{{page}}</a></li>
         {%empty%}
-        <h3>No results by tag {{tag}}</h3>
+        <h3>No results by tag {{request.GET.tag}}</h3>
     {%endfor%}
     </ul>
 {% endblock %}

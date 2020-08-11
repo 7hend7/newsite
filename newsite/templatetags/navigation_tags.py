@@ -2,7 +2,7 @@ from django import template
 
 from wagtail.core.models import Page, Site
 
-from newapp.models import FooterText, AppPageTag, AppCategory
+from newapp.models import FooterText, AppPageTag, AppCategory, AppPage
 
 
 register = template.Library()
@@ -105,7 +105,9 @@ def get_footer_text(context):
 
 @register.inclusion_tag('tags/tagged_items.html', takes_context=True)
 def get_tagged_items(context):
-    tag_pages = AppPageTag.objects.all()
+    tag_pages = AppPage.tags.all()
+    #for tag in tag_pages:
+    #    raise Exception(tag)
     return{
         'tag_pages': tag_pages,
         'raquest': context['request'],

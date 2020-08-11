@@ -2,20 +2,30 @@
 {% load wagtailcore_tags navigation_tags wagtailimages_tags %}
 {% load static %}
 {% block content %}
+<!-- It is a blog pages list -->
    <!-- s-content
     ================================================== -->
     <section class="s-content s-content--top-padding">
-    {% if selectcat %}    
-        {% for category in selectcat %}
+    {% if category %}
+       
         <div class="row narrow">
             <div class="col-full s-content__header" data-aos="fade-up">
                 <h1 class="display-1 display-1--with-line-sep">Category: {{category.name}}</h1>
                 <p class="lead">{{category.intro|safe}}</p>
             </div>
         </div>
-        {% endfor %}
-    {% endif %}
         
+    {% endif %}
+    {% if tag %}
+       
+        <div class="row narrow">
+            <div class="col-full s-content__header" data-aos="fade-up">
+                <h1 class="display-1 display-1--with-line-sep">Tag: {{tag}}</h1>
+                <p class="lead">Pages selected for tag "{{tag}}" </p>
+            </div>
+        </div>
+        
+    {% endif %}          
         <div class="row entries-wrap add-top-padding wide">
             <div class="entries">
             {% if appages %}
