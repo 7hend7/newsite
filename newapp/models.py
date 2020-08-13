@@ -36,8 +36,8 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 class AppIndexPage(Page):
     intro = RichTextField(
-        help_text='Text to describe the page', blank=True
-        )
+                          help_text='Text to describe the page', blank=True
+                          )
     image = models.ForeignKey(
         'wagtailimages.Image',
         on_delete=models.SET_NULL,
@@ -62,13 +62,12 @@ class AppIndexPage(Page):
     def children(self):
         return self.get_children().specific().live()
 
-    # TODO! tag
+    # -
     def get_livepages(self, request):
         self.cat_id = request.GET.get('cat_id')
         self.tag = request.GET.get('tag')
-
-        pages = None
         self.cat = None
+        pages = None
 
         if self.cat_id:
             pages = AppPage.objects.live().descendant_of(self).filter(categories__id=self.cat_id).order_by('-date_published')
@@ -103,7 +102,6 @@ class AppIndexPage(Page):
         context['appages'] = self.paginate(request)
         context['category'] = self.cat
         context['tag'] = self.tag
-        # context['appages'] = appages
         return context
 
     def __str__(self):
