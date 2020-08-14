@@ -28,6 +28,8 @@ from wagtail.core.blocks import (
     CharBlock, ChoiceBlock, RichTextBlock, StreamBlock, StructBlock, TextBlock,
     )
 from .blocks import BaseStreamBlock, ImgStreamBlock
+# search
+from wagtail.search.models import Query
 # snippets
 from wagtail.snippets.models import register_snippet
 # pagination
@@ -182,7 +184,7 @@ class AppPage(Page):
     # -
     search_fields = Page.search_fields + [
         index.SearchField('body'),
-        index.FilterField('date_of_birth'),
+        index.FilterField('date_published'),
         ]
 
 
