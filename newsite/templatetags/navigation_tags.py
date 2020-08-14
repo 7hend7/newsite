@@ -1,5 +1,6 @@
 from django import template
-
+import re
+from django.template.defaultfilters import stringfilter
 from wagtail.core.models import Page, Site
 
 from newapp.models import FooterText, AppPageTag, AppCategory, AppPage
@@ -123,8 +124,19 @@ def get_category_list(context):
     }
 
 
-
-
+# Our filter for parse and changing youtube URL "https://www.danielms.site/blog/wagtail-embedurl-youtube-tags/"
+@register.filter(name="embedurl")
+def get_embed_url(url):
+    if "youtube.com" in url or "youtu.be" in url:
+        regex = r"(?:https:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=)?(.+)"  # Get video id from URL
+        embed_url = re.sub(
+            regex, r"https://www.youtube.com/embed/\1", url
+        )  # Append video id to desired URL
+        # print(embed_url)
+        embed_url_with_parameters = embed_url + "?rel=0"  # Add additional parameters
+        return embed_url_with_parameters
+    else:
+        return None
 
 
 

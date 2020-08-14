@@ -182,6 +182,7 @@ class AppPage(Page):
     # -
     search_fields = Page.search_fields + [
         index.SearchField('body'),
+        index.FilterField('date_of_birth'),
         ]
 
 

@@ -4,7 +4,12 @@ from wagtail.core.blocks import (
     CharBlock, ChoiceBlock, RichTextBlock, StreamBlock, StructBlock, TextBlock,
 )
 
-
+"""
+blocks.StructBlock is a block which contains a fixed group of sub-blocks
+blocks.StreamBlock is a block which contains a sequence of different block types, 
+which can be mixed and reordered.
+So we use it to set the left_column and right_column.
+"""
 class ImageBlock(StructBlock):
     """
     Custom `StructBlock` for utilizing images with associated caption and
@@ -48,6 +53,15 @@ class BlockQuote(StructBlock):
         icon = "fa-quote-left"
         template = "blocks/blockquote.html"
 
+# Video Block
+class VideoBlock(StructBlock):
+    video = EmbedBlock()
+
+    class Meta:
+        template = "blocks/video_card_block.html"
+        icon = "media"
+        label = "Embed Video"
+
 
 # StreamBlocks
 class BaseStreamBlock(StreamBlock):
@@ -65,7 +79,7 @@ class BaseStreamBlock(StreamBlock):
         help_text='Insert an embed URL e.g https://www.youtube.com/embed/SGJFWirQ3ks',
         icon="fa-s15",
         template="blocks/embed_block.html")
-
+    video_block = VideoBlock()
 
 # Images StreamBlocks
 class ImgStreamBlock(StreamBlock):
@@ -77,3 +91,31 @@ class ImgStreamBlock(StreamBlock):
         help_text='Insert an embed URL e.g https://www.youtube.com/embed/SGJFWirQ3ks',
         icon="fa-s15",
         template="blocks/embed_block.html")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

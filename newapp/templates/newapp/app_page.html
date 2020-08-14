@@ -32,13 +32,16 @@
             <div class="col-full entry__main">
                 {{page.intro|richtext}}
                 <p class="lead drop-cap">{{page.subtitle}}</p>
-
+                
+    
     {%for block in page.body%}
                {{block}}
     {%endfor%}
-        <div id="image-list">
+    
+    
+        <div>
             {% for img in page.gallery_images.all %}
-                <div id="image">
+                <div>
                 {% image img.image fill-240x200%}<!--fill-240x200-->
                 <p>{{img.caption}}</p>
                 </div>                
@@ -49,19 +52,26 @@
                 <div class="entry__taxonomies">
                     <div class="entry__cat">
                         <h5>Posted In: </h5>
-                        <span class="entry__tax-list">
-                            <a href="#0">Lifestyle</a>
-                            <a href="#0">Management</a>
-                        </span>
+                        {% with categories=page.categories.all%}
+                            {%if categories%}
+                            {%for category in categories%}
+                            <span class="entry__tax-list">
+                                <a href="{%slugurl 'blog-page'%}?cat_id={{category.id}}">
+                                <!--#{% image category.icon fill-50x50 class="image-category" %}-->
+                                {{category.name}}
+                                </a>                            
+                            </span>
+                            {%endfor%}
+                            {%endif%}
+                        {% endwith %}
                     </div> <!-- end entry__cat -->
 
                     <div class="entry__tags">
                         <h5>Tags: </h5>
                         <span class="entry__tax-list entry__tax-list--pill">
-                            <a href="#0">orci</a>
-                            <a href="#0">lectus</a>
-                            <a href="#0">varius</a>
-                            <a href="#0">turpis</a>
+                        {% for tag in page.tags.all %}
+                            <a href="{%slugurl 'blog-page'%}?tag={{tag}}">{{tag}}</a>
+                        {% endfor %}
                         </span>
                     </div> <!-- end entry__tags -->
                 </div> <!-- end s-content__taxonomies -->
