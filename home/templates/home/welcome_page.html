@@ -22,7 +22,7 @@
                             {% with categories=related.shown_page.specific.categories.all %}
                                 {% if categories %}
                                     {% for category in categories %}
-                                        <span class="entry__category"><a href="{%slugurl 'index-page'%}?cat_id={{category.id}}"> {{ category.name }}</a></span>
+                                        <span class="entry__category"><a href="{%slugurl 'app-index-page'%}?cat_id={{category.id}}"> {{ category.name }}</a></span>
                                     {% endfor %}   
                                 {%endif%}    
                                 <h1><a href="{{related.shown_page.url}}" title="">{{related.shown_page.title}}</a></h1>

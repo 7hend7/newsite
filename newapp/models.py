@@ -56,6 +56,11 @@ class AppIndexPage(Page):
 
     subpage_types = ['AppPage']
 
+    # override parent constructor to set slug field
+    def __init__(self, *args, **kwargs):
+        super(Page, self).__init__(*args, **kwargs)
+        self.slug = "app-index-page"
+
     def get(self, request, *args, **kwargs):
         return super(AppPage, self).get(request, *args, **kwargs)
 
@@ -150,6 +155,7 @@ class AppPage(Page):
         null=False
         )
 
+    likes =  models.PositiveIntegerField(null=True, blank=True, default=0)
     categories = ParentalManyToManyField('newapp.AppCategory', blank=True)
 
     def get_first_image(self):
