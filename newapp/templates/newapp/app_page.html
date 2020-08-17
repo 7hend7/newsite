@@ -103,16 +103,37 @@
         <div class="s-content__entry-nav">
             <div class="row s-content__nav">
                 <div class="col-six s-content__prev">
-                    <a href="#0" rel="prev">
-                        <span>Previous Post</span>
-                        The Pomodoro Technique Really Works. 
-                    </a>
+                {%with prev_page=page.get_prev_page%}
+                    {%if prev_page%}
+                    <a href="{% pageurl prev_page %}" rel="prev">
+                    
+                        <span>Пердыдущий пост</span>  
+                        {{prev_page.title}}
+                    </a></br>
+                    {% image prev_page.image fill-150x100-c50 as fimage %}
+                    <img src="{{ fimage.url }}" alt="">
+                    {%else%}
+                        <span>Пердыдущий пост</span> 
+                        
+                    {%endif%}
+                {%endwith%}
                 </div>
                 <div class="col-six s-content__next">
-                    <a href="#0" rel="next">
-                        <span>Next Post</span>
-                        3 Benefits of Minimalism In Interior Design.
-                    </a>
+                {%with next_page=page.get_next_page%}
+                    {%if next_page%}
+                    <a href="{% pageurl next_page %}" rel="next">
+                        
+                        <span>Следующий пост</span>  
+                    
+                        {{next_page.title}}
+                    </a></br>
+                    {% image next_page.image fill-150x100-c50 as fimage %}
+                    <img src="{{ fimage.url }}" alt="">                    
+                    {%else%}
+                        <span>Следующий пост</span>
+                        
+                    {%endif%}                    
+                {%endwith%}
                 </div>
             </div>
         </div> <!-- end s-content__pagenav -->

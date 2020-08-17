@@ -165,9 +165,15 @@ class AppPage(Page):
     def get_page_images(self):
         return AppPageGalleryImage.objects.filter(page__id=self.id)
 
-    def get_by_category(self):
-        res = self.objects.filter(categories=self.categories)  # !??
-        # raise Exception(res.count())
+    def get_next_page(self):
+        res = self.get_next_by_date_published()
+        # raise Exception(res)
+        return res
+
+    def get_prev_page(self):
+        #raise Exception(self)
+        res = self.get_previous_by_date_published()
+        # raise Exception(res)
         return res
 
     content_panels = Page.content_panels + [
