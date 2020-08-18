@@ -34,6 +34,10 @@ from wagtail.search.models import Query
 from wagtail.snippets.models import register_snippet
 # pagination
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
+# -!-
+# from wagtailstreamforms.wagtail_hooks.process_form import hooks
 
 
 class AppIndexPage(Page):
@@ -130,7 +134,7 @@ class ImgPageTag(TaggedItemBase):
         related_name='tagged_items', on_delete=models.CASCADE)
 
 
-class AppPage(Page):
+class AppPage(RoutablePageMixin, Page):
     intro = RichTextField(
         help_text='Text to describe the page', blank=True
         )
@@ -157,6 +161,15 @@ class AppPage(Page):
 
     likes =  models.PositiveIntegerField(null=True, blank=True, default=0)
     categories = ParentalManyToManyField('newapp.AppCategory', blank=True)
+
+    # -
+    def get(self, request, *args, **kwargs):
+        if request.is_ajax():
+            # raise Exception("ajax!")
+            id_page = request.GET['id_page']
+
+            # self.likes += 1
+        return super().get(request, *args, **kwargs)
 
     def get_first_image(self):
         # return None

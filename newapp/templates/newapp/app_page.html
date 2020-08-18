@@ -137,4 +137,32 @@
                 </div>
             </div>
         </div> <!-- end s-content__pagenav -->
+        <div style="text-align:center">
+            <button id="like">Likes {{page.likes}}</button>
+            
+        </div>
+
+        {% block extra_js %}
+            <script type="text/javascript">
+            $(document).ready(function(){
+                $("#like").on("click",
+                            function(){
+                                 $.ajax({
+                                    type:"GET",
+                                    url:"{% url 'addlike' %}",
+                                    data:{"id_page":  {{page.id}} },
+                                    success:function(data){
+                                            alert("!!!!")
+                                            //$('#simpleCart_total').text(data.summ)
+                                            //$('#simpleCart_quantity').text(data.count) 
+                                            // alert(data.summ) 
+                                    },  
+                                    dataType:"json",
+                                });
+                            }
+                        )                                            
+            });
+            </script>
+        {% endblock extra_js %}        
+        
 {% endblock%}
