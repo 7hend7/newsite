@@ -13,13 +13,13 @@ from django.views.generic.edit import ProcessFormView, BaseCreateView, FormMixin
 from django.conf import settings
 from newapp.models import AppPage
 
-
+"""
 # -ajax
 def dolikes(request):
-    # raise Exception("ajax!")
     if request.is_ajax():
         id_page = request.GET['id_page']
     data = {
         'res': "success",
         }
     return JsonResponse(data)   
+"""

@@ -6,5 +6,5 @@ from . import views
 # patterns
 urlpatterns = [
 # adding likes at the apppage through  AJAX
-re_path(r'addlike/$', views.dolikes, name="addlike"),
+# re_path(r'addlike/$', views.dolikes, name="addlike"), # "{% url 'addlike' %}" will calling this view
 ]

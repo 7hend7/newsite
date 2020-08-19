@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% load wagtailcore_tags wagtailimages_tags navigation_tags %}
+{% load wagtailcore_tags wagtailimages_tags navigation_tags static %}
 
 {% block content%}
     <!-- s-content
@@ -131,15 +131,15 @@
                     <img src="{{ fimage.url }}" alt="">                    
                     {%else%}
                         <span>Следующий пост</span>
-                        
+
                     {%endif%}                    
                 {%endwith%}
                 </div>
             </div>
         </div> <!-- end s-content__pagenav -->
         <div style="text-align:center">
-            <button id="like">Likes {{page.likes}}</button>
-            
+            <button id="like" style="color:blue"><img src="{% static 'img/icons/icon-heart.svg' %}"/>
+                    Likes <text id="likes_count" style="color:red; font-size:1em">{{page.likes}}</text> </button>
         </div>
 
         {% block extra_js %}
@@ -149,13 +149,12 @@
                             function(){
                                  $.ajax({
                                     type:"GET",
-                                    url:"{% url 'addlike' %}",
+                                    url:"{% pageurl page %}",
                                     data:{"id_page":  {{page.id}} },
                                     success:function(data){
-                                            alert("!!!!")
-                                            //$('#simpleCart_total').text(data.summ)
-                                            //$('#simpleCart_quantity').text(data.count) 
-                                            // alert(data.summ) 
+                                            //text = $("#likes")
+                                            $("#likes_count").text(data.likes_count)
+                                            //alert(data.likes) 
                                     },  
                                     dataType:"json",
                                 });

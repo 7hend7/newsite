@@ -21,7 +21,7 @@ urlpatterns = [
     # it is to adding like at the page
     # url(r'^addlike/$', newapp_views.dolikes, name='addlike'),
     # added to serve ajax request from apppage
-    url(r'^page_ajax/', include(page_urls)),
+    # url(r'^page_ajax/', include(page_urls)),
     
 ]
 

@@ -1,5 +1,5 @@
 from __future__ import unicode_literals
-
+import json
 from django.contrib import messages
 from django.db import models
 from django.shortcuts import redirect, render
@@ -35,7 +35,7 @@ from wagtail.snippets.models import register_snippet
 # pagination
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.decorators.csrf import csrf_exempt
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 # -!-
 # from wagtailstreamforms.wagtail_hooks.process_form import hooks
 
@@ -190,10 +190,22 @@ class AppPage(RoutablePageMixin, Page):
         return res
 
     def get_prev_page(self):
-        #raise Exception(self)
+        # raise Exception(self)
         res = self.get_previous_by_date_published()
         # raise Exception(res)
         return res
+
+    # Additional method to serving request!
+    # We serve AJAX request
+    def serve(self, request, *args, **kwargs):
+        if request.is_ajax():
+            self.likes += 1
+            self.save()
+            res = {"likes_count": str(self.likes)}
+            json_output = json.dumps(res)
+            return HttpResponse(json_output)
+        else:
+            return super().serve(request, *args, **kwargs)
 
     content_panels = Page.content_panels + [
         FieldPanel('subtitle', classname="full"),
