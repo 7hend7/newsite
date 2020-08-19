@@ -1217,7 +1217,7 @@ button::-moz-focus-inner, input::-moz-focus-inner {
  * markup:
  *
  * <ul class="stats-tabs">
- *    <li><a href="#">[value]<em>[name]</em></a></li>
+ *    <li>< href="#">[value]<em>[name]</em></a></li>
  *  </ul>
  *
  * Extend this object into your markup.
@@ -1800,6 +1800,9 @@ button::-moz-focus-inner, input::-moz-focus-inner {
   position: absolute;
   top: 50%;
   left: 40px;
+  
+  width: 105px;
+  height: 105px;
 }
 
 .header__logo a {

@@ -11,7 +11,10 @@ Our context processor.
 def default_banner(request):
     ''' It will have pushed default image banner to context '''
     banner = DefaultBannerImage.objects.first()
-    # raise Exception(str(banner.image))
-    return {'default_banner': banner.image}
+    # raise Exception(banner.image)
+    if banner:
+        return {'banner': banner}
+    else:
+        return {'banner': None}
 
 

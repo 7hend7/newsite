@@ -344,7 +344,7 @@ class DefaultBannerImage(models.Model):
         null=True,
         blank=True,
         related_name='+',
-        help_text='Default image for banner'
+        help_text='Default image for banner/logo'
         )
 
     panels = [
@@ -352,10 +352,10 @@ class DefaultBannerImage(models.Model):
         ]
 
     def __str__(self):
-        return "Default image banner"
+        return "Default banner/logo image"
 
     class Meta:
-        verbose_name_plural = 'Default image for banner'
+        verbose_name_plural = 'Default image for banner/logo'
 
 
 class FormField(AbstractFormField):

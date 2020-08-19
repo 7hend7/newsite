@@ -6,7 +6,12 @@
 
         <div class="header__logo">
             <a class="logo" href="index.html">
-                <img src="{% static 'img/logo.svg' %}" alt="Homepage">
+            {%if banner%}
+                {% image banner.image max-200x200 as fimage %}
+                <img src="{{fimage.url}}" alt="Homepage">
+            {%else%}
+                <img src="{% static 'img/icons/icon-heart.svg' %}" alt="Homepage">
+            {%endif%}
             </a>
         </div> <!-- end header__logo -->
 
