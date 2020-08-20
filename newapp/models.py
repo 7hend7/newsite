@@ -198,9 +198,19 @@ class AppPage(RoutablePageMixin, Page):
     # Additional method to serving request!
     # We serve AJAX request
     def serve(self, request, *args, **kwargs):
+        page_id = str(self.id)
         if request.is_ajax():
-            self.likes += 1
-            self.save()
+            self.session = request.session
+            # self.session.flush()
+            # raise Exception(self.session["addLike"])
+            self.addlike = self.session.get("addlike")
+            if not self.addlike:
+                self.addlike = self.session["addlike"] = {}
+            if page_id not in self.addlike:
+                self.addlike[page_id] = "1"
+                request.session.modified = True
+                self.likes += 1
+                self.save()
             res = {"likes_count": str(self.likes)}
             json_output = json.dumps(res)
             return HttpResponse(json_output)

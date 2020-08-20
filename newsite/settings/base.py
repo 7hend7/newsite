@@ -20,9 +20,10 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
+# Const
+TWO_WEAKS = 1209600
 
 # Application definition
-
 INSTALLED_APPS = [
     'home',
     'search', # this is our search app
@@ -175,3 +176,6 @@ WAGTAIL_SITE_NAME = "newsite"
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
 BASE_URL = 'http://newsite.com'
+#SET SESSIONS
+SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
+SESSION_COOKIE_AGE =  TWO_WEAKS * 100

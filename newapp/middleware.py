@@ -9,7 +9,7 @@ Our context processor.
 
 
 def default_banner(request):
-    ''' It will have pushed default image banner to context '''
+    ''' It will have pushed default image banner/logo to context '''
     banner = DefaultBannerImage.objects.first()
     # raise Exception(banner.image)
     if banner:
