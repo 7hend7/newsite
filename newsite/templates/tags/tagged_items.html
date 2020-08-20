@@ -1,7 +1,11 @@
 {% load wagtailcore_tags %}
 
 <ul class="linklist">
-{%for tag in tag_pages%}
-       <li><a href="{%slugurl 'app-index-page' %}?tag={{tag}}">{{tag}}</a></li><!--titem.content_object-->
+{%for tags in tag_pages%}
+    <li>
+    {%for tag in tags%}
+           <a href="{%slugurl 'app-index-page' %}?tag={{tag}}">#{{tag}}</a><!--titem.content_object-->           
+    {%endfor%}      
+    </li>
 {%endfor%}
 </ul>

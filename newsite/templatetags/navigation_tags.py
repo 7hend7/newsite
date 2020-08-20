@@ -106,7 +106,7 @@ def get_footer_text(context):
 
 @register.inclusion_tag('tags/tagged_items.html', takes_context=True)
 def get_tagged_items(context):
-    tag_pages = AppPage.tags.all()
+    tag_pages = AppPage.get_tag_items_bycount()# AppPage.tags.all()
     #for tag in tag_pages:
     #    raise Exception(tag)
     return{
