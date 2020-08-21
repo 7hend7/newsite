@@ -37,6 +37,7 @@
 <main role="main">
     {% block content %}
     {% endblock content %}
+        
 </main>
     <!-- Extra some content before footer-->
     {%block extra%}
@@ -62,6 +63,12 @@
     <script src="{% static 'js/plugins.js' %}"></script>
     <script src="{% static 'js/main.js' %}"></script>   
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{%static 'js/jquery-ui/jquery-ui.min.js'%}"></script>
+            <script src="{%static 'js/jquery-ui/jquery-ui.min.js'%}"></script>
+            <!--our scripts-->
+            <script src="{%static 'js/datepicker-ru.js'%}"></script>
+            <script src="{%static 'js/dpicker.js'%}"></script>
+    
         {% block extra_js %}
             {# Override this in templates to add extra javascript #}
         {% endblock %}

@@ -27,7 +27,11 @@
             </form>
 
             <a href="#0" title="Close Search" class="header__overlay-close">Close</a>
-
+            <!-- -->            
+            <form id="form-date-select" name="form-date-select"  role="search" action="#"><!-- class="form-inline navbar-form"-->
+                    <input type="text" name="date-nav" id="date-nav" class="form-control" style="width:7em" placeholder="Date">
+                    <!--<button id="button-date-select" type="submit" >Выбрать</button><!-- class="btn btn-primary navbar-btn" -->
+            </form> 
         </div>  <!-- end header__search -->
 
         <a class="header__toggle-menu" href="#0" title="Menu"><span>Menu</span></a>
@@ -40,11 +44,13 @@
                 <li class="current"><a href="/" title="">Домой</a></li>
                             {# main_menu is defined in ..templatetags/navigation_tags.py #}
                             {% get_site_root as site_root %}
-                            {% top_menu parent=site_root calling_page=self %}                
+                            {% top_menu parent=site_root calling_page=self %}  
             </ul> <!-- end header__nav -->
 
             <a href="#0" title="Close Menu" class="header__overlay-close close-mobile-menu">Close</a>
 
         </nav> <!-- end header__nav-wrap -->
         {% endblock main_navigation %}
+       
     </header> <!-- s-header -->
+ 
