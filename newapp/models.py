@@ -188,32 +188,17 @@ class AppPage(RoutablePageMixin, Page):
 
     def get_tag_items_bycount(count=5):
         tags = AppPage.tags.all()
-        # raise Exception(tags)
-        atags = [t for t in tags]
-        itr = len(atags)
-        rem = itr % count
-        fiter = itr // count
-        if rem:
-            fiter += 1
-        r = []
+        res = [tags[i:i + count] for i in range(0, len(tags), count)]
+        return res
+
+    def get_page_bypopular():
         res = []
-        for i in range(0, fiter):
-            for k in range(0, count):
-                try:
-                    t = atags.pop()
-                    r.append(t)
-                except:
-                    pass
-            res.append(r.copy())
-            r.clear()
+        res = AppPage.objects.live().order_by("-likes")[:5]
         return res
 
     # Additional method to serving request!
     # We serve AJAX request
     def serve(self, request, *args, **kwargs):
-        # tag = AppPage.get_tag_items_bycount()
-        # raise Exception(tag)
-        
         page_id = str(self.id)
         if request.is_ajax():
             self.session = request.session

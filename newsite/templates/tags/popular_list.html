@@ -1,0 +1,27 @@
+{% load navigation_tags wagtailcore_tags wagtailimages_tags  %}
+        
+{%for page in popular_list%}
+                    
+    <article class="col-block popular__post">                    
+                        
+        <a href="{%pageurl page%}" class="popular__thumb">
+                            
+        {% image page.image fill-100x100-c50 as fimage %}
+                            
+            <img src="{{fimage.url}}" alt="">
+                        
+        </a>
+                        
+        <h5>{{page.title}}</h5>
+                        
+        <section class="popular__meta">
+                            
+            <span class="popular__author"><span>By</span> <a href="#0">Owner</a></span>
+                            
+            <span class="popular__date"><span>on</span> <time datetime="2018-06-14">{{page.date_published}}</time></span>
+                        
+        </section>
+                    
+    </article>
+                    
+{%endfor%}

@@ -111,7 +111,7 @@ def get_tagged_items(context):
     #    raise Exception(tag)
     return{
         'tag_pages': tag_pages,
-        'raquest': context['request'],
+        'request': context['request'],
     }
 
 
@@ -120,9 +120,16 @@ def get_category_list(context):
     cat_list = AppCategory.objects.all()
     return{
         'cat_list': cat_list,
-        'raquest': context['request'],
+        'request': context['request'],
     }
 
+@register.inclusion_tag('tags/popular_list.html', takes_context=True)
+def get_popular_list(context):
+    pop_list = AppPage.get_page_bypopular()
+    return{
+        'popular_list': pop_list,
+        'request': context['request'],
+    }
 
 # Our filter for parse and changing youtube URL "https://www.danielms.site/blog/wagtail-embedurl-youtube-tags/"
 @register.filter(name="embedurl")
