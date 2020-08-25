@@ -75,13 +75,15 @@ class AppIndexPage(Page):
     def get_livepages(self, request):
         self.cat_id = request.GET.get('cat_id')
         self.tag = request.GET.get('tag')
+        self.date_p = request.GET.get("date-nav")
         self.cat = None
         pages = None
         # -
-        self.date_p = request.GET.get("date-nav")
         if self.date_p:
-            self.date_p = datetime.strptime(self.date_p,'%d/%m/%Y')
+            # raise Exception(self.date_p)
+            self.date_p = datetime.strptime(self.date_p, '%d/%m/%Y')
             self.date_p = self.date_p.strftime('%Y-%m-%d')
+            pages = AppPage.objects.live().descendant_of(self).filter(date_published=self.date_p)            
         # -
         if self.cat_id:
             pages = AppPage.objects.live().descendant_of(self).filter(categories__id=self.cat_id).order_by('-date_published')
@@ -89,8 +91,6 @@ class AppIndexPage(Page):
             # raise Exception(self.cat)
         if self.tag:
             pages = AppPage.objects.live().descendant_of(self).filter(tags__name=self.tag).order_by('-date_published')
-        if self.date_p:
-            pages = AppPage.objects.live().descendant_of(self).filter(date_published=self.date_p)
         if not pages:
             pages = AppPage.objects.live().descendant_of(self).order_by('-date_published')  # '-first_published_at'
         return pages

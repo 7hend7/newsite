@@ -54,7 +54,7 @@
                             <h1 class="item-entry__title"><a href="{% pageurl page %}">{{page.title}}</a></h1>
                                 
                             <div class="item-entry__date">
-                                <a href="">{{page.date_published}}</a>
+                                <a href="{%slugurl 'app-index-page'%}?date-nav={{page.date_published|date:'d/m/Y'}}">{{page.date_published}}</a>
                             </div>
                         </div>
                     </div> <!-- item-entry -->
