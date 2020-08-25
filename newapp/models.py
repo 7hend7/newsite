@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
 import json
+from datetime import datetime
 from django.contrib import messages
 from django.db import models
 from django.shortcuts import redirect, render
@@ -65,9 +66,6 @@ class AppIndexPage(Page):
         super(Page, self).__init__(*args, **kwargs)
         self.slug = "app-index-page"
 
-    def get(self, request, *args, **kwargs):
-        return super(AppPage, self).get(request, *args, **kwargs)
-
     # Defines a method to access the children of the page (e.g. BlogPage
     # objects). On the demo site we use this on the HomePage
     def children(self):
@@ -79,14 +77,20 @@ class AppIndexPage(Page):
         self.tag = request.GET.get('tag')
         self.cat = None
         pages = None
-
+        # -
+        self.date_p = request.GET.get("date-nav")
+        if self.date_p:
+            self.date_p = datetime.strptime(self.date_p,'%d/%m/%Y')
+            self.date_p = self.date_p.strftime('%Y-%m-%d')
+        # -
         if self.cat_id:
             pages = AppPage.objects.live().descendant_of(self).filter(categories__id=self.cat_id).order_by('-date_published')
             self.cat = AppCategory.objects.filter(id=self.cat_id).first()
             # raise Exception(self.cat)
         if self.tag:
             pages = AppPage.objects.live().descendant_of(self).filter(tags__name=self.tag).order_by('-date_published')
-
+        if self.date_p:
+            pages = AppPage.objects.live().descendant_of(self).filter(date_published=self.date_p)
         if not pages:
             pages = AppPage.objects.live().descendant_of(self).order_by('-date_published')  # '-first_published_at'
         return pages
@@ -200,6 +204,7 @@ class AppPage(RoutablePageMixin, Page):
     # We serve AJAX request
     def serve(self, request, *args, **kwargs):
         page_id = str(self.id)
+
         if request.is_ajax():
             self.session = request.session
             # self.session.flush()
