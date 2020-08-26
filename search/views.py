@@ -6,7 +6,9 @@ from django.db import models
 from wagtail.core.models import Page
 from wagtail.search.models import Query
 from newapp.models import AppPage
-
+# -test
+import sys
+import random
 
 def search(request):
     search_query = request.GET.get('query', None)
@@ -14,14 +16,13 @@ def search(request):
     # raise Exception(search_query)
     # Search
     if search_query:
-        # search_results = AppPage.objects.live().search(search_query)
-        # Record hit        
-        # raise Exception(search_query)
+        """
         s = get_search_backend()
         search_results = s.search(search_query, AppPage.objects.all())  # .filter(body__icontains=search_query)
-        search_results = AppPage.objects.filter(body__icontains=search_query)
-        # raise Exception(search_results)
+        search_results = AppPage.objects.filter(body__icontains=search_query)                
         Query.get(search_query).add_hit()
+        """
+        search_results =AppPage.objects.live().search(search_query)
     else:
         search_results = AppPage.objects.none()
 

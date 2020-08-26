@@ -237,7 +237,11 @@ class AppPage(RoutablePageMixin, Page):
     # -
     search_fields = Page.search_fields + [
         index.SearchField('body'),
-        index.FilterField('date_published'),
+        # index.FilterField('date_published'),
+        # index.SearchField('intro'),
+        # index.SearchField('title'),
+        # index.SearchField('subtitle'),
+        
         ]
 
 
