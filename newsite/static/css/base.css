@@ -890,5 +890,14 @@ textarea {
   margin-right: auto;
   text-align: center;
 }
+   /*our header*/
+
+            .g-header{
+                font-style: italic;
+                font-family: Georgia, 'Times New Roman', Times, serif;
+                text-align:center;
+                color:white; 
+                text-shadow: 1px 1px 2px black, 0 0 1em black;
+            }
 
 /*# sourceMappingURL=base.css.map */

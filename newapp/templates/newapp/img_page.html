@@ -1,13 +1,17 @@
 {% extends "base.html" %}
 {% load static i18n wagtailcore_tags navigation_tags wagtailimages_tags %}
+        
+        {% block extra_css %}
+        <style>
 
+        </style>
+        {% endblock %}
 {% block content %}
+<section class="s-content">
 <div id="gallery" class="container">
-
-
 <wrapper>
 <div id="dws-slider" class="carousel slide" data-ride="carousel">
-<h1>Pure CSS Netflix Video Carousel</h1>
+<h3 class="g-header">Галерея</h3>
 
         <!--Показатели-->
         <ol class="carousel-indicators">
@@ -42,7 +46,7 @@
         </a>
  </div>       
  </wrapper>
-
+</selection>
 {%endblock%}
 
 {% block extra_js %}

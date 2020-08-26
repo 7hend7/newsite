@@ -4,11 +4,11 @@
     {% include "includes/head.html" %}
 {% endblock head %}
 
-<body>
-{% wagtailuserbar %}
-
 <body id="top">
-
+        {% block extra_css %}
+            {# Override this in templates to add extra stylesheets #}
+        {% endblock %}
+{% wagtailuserbar %}
     <!-- preloader
     ================================================== -->
     <div id="preloader">
