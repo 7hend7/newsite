@@ -3,8 +3,8 @@
 {% load wagtailcore_tags wagtailimages_tags navigation_tags static %}
 
 {% block content%}
-    <!-- s-content
-    ================================================== -->
+    <!-- s-content ================================================== -->
+    
     <section class="s-content s-content--top-padding s-content--narrow">
 
         <article class="row entry format-standard">
@@ -38,7 +38,13 @@
                {{block}}
     {%endfor%}
     
-    
+    {%if page.latlng%}
+        <a href="http://maps.google.com/?q={{lat}},{{long}}">Открыть на карте Google</a>
+            <div class="map-container">
+                <div id="map" class="maps embed-container"></div> <!--class="maps embed-container"-->
+            </div>
+    {%endif%}
+        
         <div>
             {% for img in page.gallery_images.all %}
                 <div>
@@ -142,7 +148,7 @@
                     Likes <text id="likes_count" style="color:red; font-size:1em">{{page.likes}}</text> </button>
         </div>
 
-        {% block extra_js %}
+
             <script type="text/javascript">
             $(document).ready(function(){
                 $("#like").on("click",
@@ -162,6 +168,34 @@
                         )                                            
             });
             </script>
-        {% endblock extra_js %}        
+            <!-- -->
+               
+{% endblock content %}
+{%block extra_js%}    
+    {%if page.latlng%}
+    <script>
+        var map;
+        function initMap() {
         
-{% endblock%}
+        map = new google.maps.Map(document.getElementById('map'), {
+        
+            center: {
+                lat: {{lat}},
+                lng: {{long}}
+            },
+            zoom: 15,
+            scrollwheel: false
+        });
+        var marker = new google.maps.Marker({
+            position: {
+                lat: {{lat}},
+                lng: {{long}}
+            },
+            map: map,
+            title: '{{page.title}}'
+        });
+        }
+    </script>
+    <script defer src="https://maps.googleapis.com/maps/api/js?key={{ google_map_api_key }}&callback=initMap" async defer></script>            
+    {%endif%}   
+{%endblock extra_js%}

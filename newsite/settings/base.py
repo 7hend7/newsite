@@ -43,7 +43,10 @@ INSTALLED_APPS = [
     'modelcluster',
     'taggit',
     'wagtailfontawesome',
-
+    #'wagtail_blocks',    
+    #'wagtailgmaps',
+    'wagtailleafletwidget',
+		
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -179,3 +182,10 @@ BASE_URL = 'http://newsite.com'
 #SET SESSIONS
 SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
 SESSION_COOKIE_AGE =  TWO_WEAKS * 100
+# Override in local settings or replace with your own key. Please don't use our demo key in production!
+GOOGLE_MAP_API_KEY = 'AIzaSyD31CT9P9KxvNUJOwDq2kcFEIG8ADgaFgw'
+#WAGTAIL_ADDRESS_MAP_KEY = 'AIzaSyD31CT9P9KxvNUJOwDq2kcFEIG8ADgaFgw'
+#WAGTAIL_ADDRESS_MAP_ZOOM = 8 # See  https://developers.google.com/maps/documentation/javascript/tutorial#MapOptions for more information.
+#WAGTAIL_ADDRESS_MAP_LANGUAGE = 'ru' # See https://developers.google.com/maps/faq#languagesupport for supported languages.
+LEAFLET_WIDGET_DEFAULT_LOCATION = {'lat': 0, 'lng': 0}
+LEAFLET_WIDGET_ZOOM = 8

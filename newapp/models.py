@@ -1,10 +1,11 @@
 from __future__ import unicode_literals
 import json
+from newsite.settings.base import GOOGLE_MAP_API_KEY
 from datetime import datetime
 from django.contrib import messages
 from django.db import models
 from django.shortcuts import redirect, render
-
+from django.core.validators import RegexValidator
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
 
@@ -28,6 +29,7 @@ from wagtail.embeds.blocks import EmbedBlock
 from wagtail.core.blocks import (
     CharBlock, ChoiceBlock, RichTextBlock, StreamBlock, StructBlock, TextBlock,
     )
+
 from .blocks import BaseStreamBlock, ImgStreamBlock
 # search
 from wagtail.search.models import Query
@@ -37,6 +39,10 @@ from wagtail.snippets.models import register_snippet
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse, HttpResponse
+# wagtailleafletwidget
+from wagtailleafletwidget.edit_handlers import GeoPanel
+from django.utils.functional import cached_property
+from wagtailleafletwidget.helpers import geosgeometry_str_to_struct
 # -!-
 # from wagtailstreamforms.wagtail_hooks.process_form import hooks
 
@@ -138,7 +144,7 @@ class ImgPageTag(TaggedItemBase):
                                  related_name='tagged_items', on_delete=models.CASCADE)
 
 
-class AppPage(RoutablePageMixin, Page):
+class AppPage(Page):  # RoutablePageMixin
     intro = RichTextField(
         help_text='Text to describe the page', blank=True
         )
@@ -163,6 +169,34 @@ class AppPage(RoutablePageMixin, Page):
         null=False
         )
 
+    # geo location coord field
+    latlng = models.CharField(max_length=128,
+                              default=None,
+                              null=True,
+                              blank=True,
+                              help_text="Comma separated lat/long. (Ex. 64.144367, -21.939182) \
+                              Right click Google Maps and select 'What\'s Here'",
+                              #validators=[
+                              #    RegexValidator(
+                              #        regex=r'^(\-?\d+(\.\d+)?),\s*(\-?\d+(\.\d+)?)$',
+                              #        message='Lat Long must be a comma-separated numeric lat and long',
+                              #        code='invalid_lat_long'
+                              #        ),
+                              #    ] 
+                              )
+    @cached_property
+    def point(self):
+        return geosgeometry_str_to_struct(self.latlng)
+
+    @property
+    def lat(self):
+        return self.point['y']
+
+    @property
+    def lng(self):
+        return self.point['x']
+
+    # -
     likes = models.PositiveIntegerField(null=True, blank=True, default=0)
     categories = ParentalManyToManyField('newapp.AppCategory', blank=True)
 
@@ -207,6 +241,7 @@ class AppPage(RoutablePageMixin, Page):
 
         if request.is_ajax():
             self.session = request.session
+            self.session.set_expiry(None)
             # self.session.flush()
             # raise Exception(self.session["addLike"])
             self.addlike = self.session.get("addlike")
@@ -233,17 +268,25 @@ class AppPage(RoutablePageMixin, Page):
         # InlinePanel()
         FieldPanel('tags'),
         InlinePanel('gallery_images', label="Gallery images"),  # gallery_images in AppPageGalleryImages
+        # geo location
+        GeoPanel('latlng'),
         ]
     # -
     search_fields = Page.search_fields + [
         index.SearchField('body'),
-        # index.FilterField('date_published'),
-        # index.SearchField('intro'),
-        # index.SearchField('title'),
-        # index.SearchField('subtitle'),
-        
+        index.FilterField('date_published'),
+        index.SearchField('intro'),
+        index.SearchField('title'),
+        index.SearchField('subtitle'),
         ]
 
+    def get_context(self, request):
+        context = super().get_context(request)
+        if self.latlng:
+            context['lat'] = self.lat
+            context['long'] = self.lng
+            context['google_map_api_key'] = GOOGLE_MAP_API_KEY
+        return context
 
 class ImgPage(Page):
     '''Galery images page'''
@@ -282,7 +325,6 @@ class ImgPage(Page):
 
     def get_context(self, request):
         context = super().get_context(request)
-        # raise Exception(context['page'].intro)
         return context
 
 
