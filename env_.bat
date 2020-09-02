@@ -1,1 +1,1 @@
-conda activate wagtail_start
+conda activate newsite

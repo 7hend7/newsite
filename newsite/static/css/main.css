@@ -4261,8 +4261,14 @@ footer [class*="s-footer__"] > .row [class*="col-"]:last-child {
     text-align:left;
 }
 
+/*maps*/
+.map-container { 
+
+        
+ }
+    
       #map {
         width: 100%;
-        height: 400px;
-        background-color: green;
+        height: 400px;      
+        
       }
